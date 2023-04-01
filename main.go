@@ -56,13 +56,16 @@ func main() {
 	for {
 		select {
 		case <-ticker.C:
-			// TODO: add business logic here to manipulate data
-			log.Println("YOLO: ", time.Now())
+			run()
 		case <-signalChan:
 			fmt.Println("Interrupt received, stopping...")
 			return
 		}
 	}
+}
+
+func run() {
+	log.Println("YOLO: ", time.Now())
 }
 
 func getDSN(url string) string {
