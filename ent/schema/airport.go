@@ -14,18 +14,19 @@ type Airport struct {
 func (Airport) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int("id").Unique().Immutable(),
-		field.String("city"),
-		field.String("country"),
-		field.String("iata"),
-		field.String("icao"),
-		field.Float("latitude"),
-		field.Float("longitude"),
-		field.Float("altitude"),
-		field.Float("timezone"),
-		field.String("dst"),
-		field.String("timezoneName"),
-		field.String("type"),
-		field.String("source"),
+		field.String("name").Optional(),
+		field.String("city").Optional(),
+		field.String("country").Optional(),
+		field.String("iata").Optional(),
+		field.String("icao").Optional(),
+		field.Float("latitude").Optional(),
+		field.Float("longitude").Optional(),
+		field.Int("altitude").Optional(),
+		field.Int("timezone").Optional(),
+		field.String("dst").Optional(),
+		field.String("timezoneName").Optional(),
+		field.String("type").Optional(),
+		field.String("source").Optional(),
 	}
 }
 

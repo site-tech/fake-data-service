@@ -7,6 +7,32 @@ const (
 	Label = "airport"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldName holds the string denoting the name field in the database.
+	FieldName = "name"
+	// FieldCity holds the string denoting the city field in the database.
+	FieldCity = "city"
+	// FieldCountry holds the string denoting the country field in the database.
+	FieldCountry = "country"
+	// FieldIata holds the string denoting the iata field in the database.
+	FieldIata = "iata"
+	// FieldIcao holds the string denoting the icao field in the database.
+	FieldIcao = "icao"
+	// FieldLatitude holds the string denoting the latitude field in the database.
+	FieldLatitude = "latitude"
+	// FieldLongitude holds the string denoting the longitude field in the database.
+	FieldLongitude = "longitude"
+	// FieldAltitude holds the string denoting the altitude field in the database.
+	FieldAltitude = "altitude"
+	// FieldTimezone holds the string denoting the timezone field in the database.
+	FieldTimezone = "timezone"
+	// FieldDst holds the string denoting the dst field in the database.
+	FieldDst = "dst"
+	// FieldTimezoneName holds the string denoting the timezonename field in the database.
+	FieldTimezoneName = "timezone_name"
+	// FieldType holds the string denoting the type field in the database.
+	FieldType = "type"
+	// FieldSource holds the string denoting the source field in the database.
+	FieldSource = "source"
 	// Table holds the table name of the airport in the database.
 	Table = "airports"
 )
@@ -14,6 +40,19 @@ const (
 // Columns holds all SQL columns for airport fields.
 var Columns = []string{
 	FieldID,
+	FieldName,
+	FieldCity,
+	FieldCountry,
+	FieldIata,
+	FieldIcao,
+	FieldLatitude,
+	FieldLongitude,
+	FieldAltitude,
+	FieldTimezone,
+	FieldDst,
+	FieldTimezoneName,
+	FieldType,
+	FieldSource,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).

@@ -4,6 +4,7 @@ package ent
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -16,6 +17,84 @@ type AirportCreate struct {
 	config
 	mutation *AirportMutation
 	hooks    []Hook
+}
+
+// SetName sets the "name" field.
+func (ac *AirportCreate) SetName(s string) *AirportCreate {
+	ac.mutation.SetName(s)
+	return ac
+}
+
+// SetCity sets the "city" field.
+func (ac *AirportCreate) SetCity(s string) *AirportCreate {
+	ac.mutation.SetCity(s)
+	return ac
+}
+
+// SetCountry sets the "country" field.
+func (ac *AirportCreate) SetCountry(s string) *AirportCreate {
+	ac.mutation.SetCountry(s)
+	return ac
+}
+
+// SetIata sets the "iata" field.
+func (ac *AirportCreate) SetIata(s string) *AirportCreate {
+	ac.mutation.SetIata(s)
+	return ac
+}
+
+// SetIcao sets the "icao" field.
+func (ac *AirportCreate) SetIcao(s string) *AirportCreate {
+	ac.mutation.SetIcao(s)
+	return ac
+}
+
+// SetLatitude sets the "latitude" field.
+func (ac *AirportCreate) SetLatitude(f float64) *AirportCreate {
+	ac.mutation.SetLatitude(f)
+	return ac
+}
+
+// SetLongitude sets the "longitude" field.
+func (ac *AirportCreate) SetLongitude(f float64) *AirportCreate {
+	ac.mutation.SetLongitude(f)
+	return ac
+}
+
+// SetAltitude sets the "altitude" field.
+func (ac *AirportCreate) SetAltitude(f float64) *AirportCreate {
+	ac.mutation.SetAltitude(f)
+	return ac
+}
+
+// SetTimezone sets the "timezone" field.
+func (ac *AirportCreate) SetTimezone(f float64) *AirportCreate {
+	ac.mutation.SetTimezone(f)
+	return ac
+}
+
+// SetDst sets the "dst" field.
+func (ac *AirportCreate) SetDst(s string) *AirportCreate {
+	ac.mutation.SetDst(s)
+	return ac
+}
+
+// SetTimezoneName sets the "timezoneName" field.
+func (ac *AirportCreate) SetTimezoneName(s string) *AirportCreate {
+	ac.mutation.SetTimezoneName(s)
+	return ac
+}
+
+// SetType sets the "type" field.
+func (ac *AirportCreate) SetType(s string) *AirportCreate {
+	ac.mutation.SetType(s)
+	return ac
+}
+
+// SetSource sets the "source" field.
+func (ac *AirportCreate) SetSource(s string) *AirportCreate {
+	ac.mutation.SetSource(s)
+	return ac
 }
 
 // SetID sets the "id" field.
@@ -58,6 +137,45 @@ func (ac *AirportCreate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (ac *AirportCreate) check() error {
+	if _, ok := ac.mutation.Name(); !ok {
+		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Airport.name"`)}
+	}
+	if _, ok := ac.mutation.City(); !ok {
+		return &ValidationError{Name: "city", err: errors.New(`ent: missing required field "Airport.city"`)}
+	}
+	if _, ok := ac.mutation.Country(); !ok {
+		return &ValidationError{Name: "country", err: errors.New(`ent: missing required field "Airport.country"`)}
+	}
+	if _, ok := ac.mutation.Iata(); !ok {
+		return &ValidationError{Name: "iata", err: errors.New(`ent: missing required field "Airport.iata"`)}
+	}
+	if _, ok := ac.mutation.Icao(); !ok {
+		return &ValidationError{Name: "icao", err: errors.New(`ent: missing required field "Airport.icao"`)}
+	}
+	if _, ok := ac.mutation.Latitude(); !ok {
+		return &ValidationError{Name: "latitude", err: errors.New(`ent: missing required field "Airport.latitude"`)}
+	}
+	if _, ok := ac.mutation.Longitude(); !ok {
+		return &ValidationError{Name: "longitude", err: errors.New(`ent: missing required field "Airport.longitude"`)}
+	}
+	if _, ok := ac.mutation.Altitude(); !ok {
+		return &ValidationError{Name: "altitude", err: errors.New(`ent: missing required field "Airport.altitude"`)}
+	}
+	if _, ok := ac.mutation.Timezone(); !ok {
+		return &ValidationError{Name: "timezone", err: errors.New(`ent: missing required field "Airport.timezone"`)}
+	}
+	if _, ok := ac.mutation.Dst(); !ok {
+		return &ValidationError{Name: "dst", err: errors.New(`ent: missing required field "Airport.dst"`)}
+	}
+	if _, ok := ac.mutation.TimezoneName(); !ok {
+		return &ValidationError{Name: "timezoneName", err: errors.New(`ent: missing required field "Airport.timezoneName"`)}
+	}
+	if _, ok := ac.mutation.GetType(); !ok {
+		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "Airport.type"`)}
+	}
+	if _, ok := ac.mutation.Source(); !ok {
+		return &ValidationError{Name: "source", err: errors.New(`ent: missing required field "Airport.source"`)}
+	}
 	return nil
 }
 
@@ -89,6 +207,58 @@ func (ac *AirportCreate) createSpec() (*Airport, *sqlgraph.CreateSpec) {
 	if id, ok := ac.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
+	}
+	if value, ok := ac.mutation.Name(); ok {
+		_spec.SetField(airport.FieldName, field.TypeString, value)
+		_node.Name = value
+	}
+	if value, ok := ac.mutation.City(); ok {
+		_spec.SetField(airport.FieldCity, field.TypeString, value)
+		_node.City = value
+	}
+	if value, ok := ac.mutation.Country(); ok {
+		_spec.SetField(airport.FieldCountry, field.TypeString, value)
+		_node.Country = value
+	}
+	if value, ok := ac.mutation.Iata(); ok {
+		_spec.SetField(airport.FieldIata, field.TypeString, value)
+		_node.Iata = value
+	}
+	if value, ok := ac.mutation.Icao(); ok {
+		_spec.SetField(airport.FieldIcao, field.TypeString, value)
+		_node.Icao = value
+	}
+	if value, ok := ac.mutation.Latitude(); ok {
+		_spec.SetField(airport.FieldLatitude, field.TypeFloat64, value)
+		_node.Latitude = value
+	}
+	if value, ok := ac.mutation.Longitude(); ok {
+		_spec.SetField(airport.FieldLongitude, field.TypeFloat64, value)
+		_node.Longitude = value
+	}
+	if value, ok := ac.mutation.Altitude(); ok {
+		_spec.SetField(airport.FieldAltitude, field.TypeFloat64, value)
+		_node.Altitude = value
+	}
+	if value, ok := ac.mutation.Timezone(); ok {
+		_spec.SetField(airport.FieldTimezone, field.TypeFloat64, value)
+		_node.Timezone = value
+	}
+	if value, ok := ac.mutation.Dst(); ok {
+		_spec.SetField(airport.FieldDst, field.TypeString, value)
+		_node.Dst = value
+	}
+	if value, ok := ac.mutation.TimezoneName(); ok {
+		_spec.SetField(airport.FieldTimezoneName, field.TypeString, value)
+		_node.TimezoneName = value
+	}
+	if value, ok := ac.mutation.GetType(); ok {
+		_spec.SetField(airport.FieldType, field.TypeString, value)
+		_node.Type = value
+	}
+	if value, ok := ac.mutation.Source(); ok {
+		_spec.SetField(airport.FieldSource, field.TypeString, value)
+		_node.Source = value
 	}
 	return _node, _spec
 }

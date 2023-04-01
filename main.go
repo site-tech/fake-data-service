@@ -46,7 +46,7 @@ func main() {
 	}
 
 	log.Println("running...")
-	ticker := time.NewTicker(5 * time.Second)
+	ticker := time.NewTicker(3000 * time.Second)
 	defer ticker.Stop()
 
 	// Set up a channel to listen for interrupt signals (Ctrl+C)

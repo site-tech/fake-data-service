@@ -257,6 +257,18 @@ func (aq *AirportQuery) Clone() *AirportQuery {
 
 // GroupBy is used to group vertices by one or more fields/columns.
 // It is often used with aggregate functions, like: count, max, mean, min, sum.
+//
+// Example:
+//
+//	var v []struct {
+//		Name string `json:"name,omitempty"`
+//		Count int `json:"count,omitempty"`
+//	}
+//
+//	client.Airport.Query().
+//		GroupBy(airport.FieldName).
+//		Aggregate(ent.Count()).
+//		Scan(ctx, &v)
 func (aq *AirportQuery) GroupBy(field string, fields ...string) *AirportGroupBy {
 	aq.ctx.Fields = append([]string{field}, fields...)
 	grbuild := &AirportGroupBy{build: aq}
@@ -268,6 +280,16 @@ func (aq *AirportQuery) GroupBy(field string, fields ...string) *AirportGroupBy 
 
 // Select allows the selection one or more fields/columns for the given query,
 // instead of selecting all fields in the entity.
+//
+// Example:
+//
+//	var v []struct {
+//		Name string `json:"name,omitempty"`
+//	}
+//
+//	client.Airport.Query().
+//		Select(airport.FieldName).
+//		Scan(ctx, &v)
 func (aq *AirportQuery) Select(fields ...string) *AirportSelect {
 	aq.ctx.Fields = append(aq.ctx.Fields, fields...)
 	sbuild := &AirportSelect{AirportQuery: aq}

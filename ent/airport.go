@@ -12,9 +12,35 @@ import (
 
 // Airport is the model entity for the Airport schema.
 type Airport struct {
-	config
+	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
+	// Name holds the value of the "name" field.
+	Name string `json:"name,omitempty"`
+	// City holds the value of the "city" field.
+	City string `json:"city,omitempty"`
+	// Country holds the value of the "country" field.
+	Country string `json:"country,omitempty"`
+	// Iata holds the value of the "iata" field.
+	Iata string `json:"iata,omitempty"`
+	// Icao holds the value of the "icao" field.
+	Icao string `json:"icao,omitempty"`
+	// Latitude holds the value of the "latitude" field.
+	Latitude float64 `json:"latitude,omitempty"`
+	// Longitude holds the value of the "longitude" field.
+	Longitude float64 `json:"longitude,omitempty"`
+	// Altitude holds the value of the "altitude" field.
+	Altitude float64 `json:"altitude,omitempty"`
+	// Timezone holds the value of the "timezone" field.
+	Timezone float64 `json:"timezone,omitempty"`
+	// Dst holds the value of the "dst" field.
+	Dst string `json:"dst,omitempty"`
+	// TimezoneName holds the value of the "timezoneName" field.
+	TimezoneName string `json:"timezoneName,omitempty"`
+	// Type holds the value of the "type" field.
+	Type string `json:"type,omitempty"`
+	// Source holds the value of the "source" field.
+	Source string `json:"source,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -22,8 +48,12 @@ func (*Airport) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case airport.FieldLatitude, airport.FieldLongitude, airport.FieldAltitude, airport.FieldTimezone:
+			values[i] = new(sql.NullFloat64)
 		case airport.FieldID:
 			values[i] = new(sql.NullInt64)
+		case airport.FieldName, airport.FieldCity, airport.FieldCountry, airport.FieldIata, airport.FieldIcao, airport.FieldDst, airport.FieldTimezoneName, airport.FieldType, airport.FieldSource:
+			values[i] = new(sql.NullString)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Airport", columns[i])
 		}
@@ -45,6 +75,84 @@ func (a *Airport) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			a.ID = int(value.Int64)
+		case airport.FieldName:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field name", values[i])
+			} else if value.Valid {
+				a.Name = value.String
+			}
+		case airport.FieldCity:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field city", values[i])
+			} else if value.Valid {
+				a.City = value.String
+			}
+		case airport.FieldCountry:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field country", values[i])
+			} else if value.Valid {
+				a.Country = value.String
+			}
+		case airport.FieldIata:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field iata", values[i])
+			} else if value.Valid {
+				a.Iata = value.String
+			}
+		case airport.FieldIcao:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field icao", values[i])
+			} else if value.Valid {
+				a.Icao = value.String
+			}
+		case airport.FieldLatitude:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field latitude", values[i])
+			} else if value.Valid {
+				a.Latitude = value.Float64
+			}
+		case airport.FieldLongitude:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field longitude", values[i])
+			} else if value.Valid {
+				a.Longitude = value.Float64
+			}
+		case airport.FieldAltitude:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field altitude", values[i])
+			} else if value.Valid {
+				a.Altitude = value.Float64
+			}
+		case airport.FieldTimezone:
+			if value, ok := values[i].(*sql.NullFloat64); !ok {
+				return fmt.Errorf("unexpected type %T for field timezone", values[i])
+			} else if value.Valid {
+				a.Timezone = value.Float64
+			}
+		case airport.FieldDst:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field dst", values[i])
+			} else if value.Valid {
+				a.Dst = value.String
+			}
+		case airport.FieldTimezoneName:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field timezoneName", values[i])
+			} else if value.Valid {
+				a.TimezoneName = value.String
+			}
+		case airport.FieldType:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field type", values[i])
+			} else if value.Valid {
+				a.Type = value.String
+			}
+		case airport.FieldSource:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field source", values[i])
+			} else if value.Valid {
+				a.Source = value.String
+			}
 		}
 	}
 	return nil
@@ -72,7 +180,45 @@ func (a *Airport) Unwrap() *Airport {
 func (a *Airport) String() string {
 	var builder strings.Builder
 	builder.WriteString("Airport(")
-	builder.WriteString(fmt.Sprintf("id=%v", a.ID))
+	builder.WriteString(fmt.Sprintf("id=%v, ", a.ID))
+	builder.WriteString("name=")
+	builder.WriteString(a.Name)
+	builder.WriteString(", ")
+	builder.WriteString("city=")
+	builder.WriteString(a.City)
+	builder.WriteString(", ")
+	builder.WriteString("country=")
+	builder.WriteString(a.Country)
+	builder.WriteString(", ")
+	builder.WriteString("iata=")
+	builder.WriteString(a.Iata)
+	builder.WriteString(", ")
+	builder.WriteString("icao=")
+	builder.WriteString(a.Icao)
+	builder.WriteString(", ")
+	builder.WriteString("latitude=")
+	builder.WriteString(fmt.Sprintf("%v", a.Latitude))
+	builder.WriteString(", ")
+	builder.WriteString("longitude=")
+	builder.WriteString(fmt.Sprintf("%v", a.Longitude))
+	builder.WriteString(", ")
+	builder.WriteString("altitude=")
+	builder.WriteString(fmt.Sprintf("%v", a.Altitude))
+	builder.WriteString(", ")
+	builder.WriteString("timezone=")
+	builder.WriteString(fmt.Sprintf("%v", a.Timezone))
+	builder.WriteString(", ")
+	builder.WriteString("dst=")
+	builder.WriteString(a.Dst)
+	builder.WriteString(", ")
+	builder.WriteString("timezoneName=")
+	builder.WriteString(a.TimezoneName)
+	builder.WriteString(", ")
+	builder.WriteString("type=")
+	builder.WriteString(a.Type)
+	builder.WriteString(", ")
+	builder.WriteString("source=")
+	builder.WriteString(a.Source)
 	builder.WriteByte(')')
 	return builder.String()
 }

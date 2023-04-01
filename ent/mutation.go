@@ -10,6 +10,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
+	"github.com/site-tech/fake-data-service/ent/airport"
 	"github.com/site-tech/fake-data-service/ent/predicate"
 )
 
@@ -31,6 +32,23 @@ type AirportMutation struct {
 	op            Op
 	typ           string
 	id            *int
+	name          *string
+	city          *string
+	country       *string
+	iata          *string
+	icao          *string
+	latitude      *float64
+	addlatitude   *float64
+	longitude     *float64
+	addlongitude  *float64
+	altitude      *float64
+	addaltitude   *float64
+	timezone      *float64
+	addtimezone   *float64
+	dst           *string
+	timezoneName  *string
+	_type         *string
+	source        *string
 	clearedFields map[string]struct{}
 	done          bool
 	oldValue      func(context.Context) (*Airport, error)
@@ -141,6 +159,554 @@ func (m *AirportMutation) IDs(ctx context.Context) ([]int, error) {
 	}
 }
 
+// SetName sets the "name" field.
+func (m *AirportMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *AirportMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *AirportMutation) ResetName() {
+	m.name = nil
+}
+
+// SetCity sets the "city" field.
+func (m *AirportMutation) SetCity(s string) {
+	m.city = &s
+}
+
+// City returns the value of the "city" field in the mutation.
+func (m *AirportMutation) City() (r string, exists bool) {
+	v := m.city
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCity returns the old "city" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldCity(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCity is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCity requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCity: %w", err)
+	}
+	return oldValue.City, nil
+}
+
+// ResetCity resets all changes to the "city" field.
+func (m *AirportMutation) ResetCity() {
+	m.city = nil
+}
+
+// SetCountry sets the "country" field.
+func (m *AirportMutation) SetCountry(s string) {
+	m.country = &s
+}
+
+// Country returns the value of the "country" field in the mutation.
+func (m *AirportMutation) Country() (r string, exists bool) {
+	v := m.country
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCountry returns the old "country" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldCountry(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCountry is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCountry requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCountry: %w", err)
+	}
+	return oldValue.Country, nil
+}
+
+// ResetCountry resets all changes to the "country" field.
+func (m *AirportMutation) ResetCountry() {
+	m.country = nil
+}
+
+// SetIata sets the "iata" field.
+func (m *AirportMutation) SetIata(s string) {
+	m.iata = &s
+}
+
+// Iata returns the value of the "iata" field in the mutation.
+func (m *AirportMutation) Iata() (r string, exists bool) {
+	v := m.iata
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIata returns the old "iata" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldIata(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIata is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIata requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIata: %w", err)
+	}
+	return oldValue.Iata, nil
+}
+
+// ResetIata resets all changes to the "iata" field.
+func (m *AirportMutation) ResetIata() {
+	m.iata = nil
+}
+
+// SetIcao sets the "icao" field.
+func (m *AirportMutation) SetIcao(s string) {
+	m.icao = &s
+}
+
+// Icao returns the value of the "icao" field in the mutation.
+func (m *AirportMutation) Icao() (r string, exists bool) {
+	v := m.icao
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIcao returns the old "icao" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldIcao(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIcao is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIcao requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIcao: %w", err)
+	}
+	return oldValue.Icao, nil
+}
+
+// ResetIcao resets all changes to the "icao" field.
+func (m *AirportMutation) ResetIcao() {
+	m.icao = nil
+}
+
+// SetLatitude sets the "latitude" field.
+func (m *AirportMutation) SetLatitude(f float64) {
+	m.latitude = &f
+	m.addlatitude = nil
+}
+
+// Latitude returns the value of the "latitude" field in the mutation.
+func (m *AirportMutation) Latitude() (r float64, exists bool) {
+	v := m.latitude
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLatitude returns the old "latitude" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldLatitude(ctx context.Context) (v float64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLatitude is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLatitude requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLatitude: %w", err)
+	}
+	return oldValue.Latitude, nil
+}
+
+// AddLatitude adds f to the "latitude" field.
+func (m *AirportMutation) AddLatitude(f float64) {
+	if m.addlatitude != nil {
+		*m.addlatitude += f
+	} else {
+		m.addlatitude = &f
+	}
+}
+
+// AddedLatitude returns the value that was added to the "latitude" field in this mutation.
+func (m *AirportMutation) AddedLatitude() (r float64, exists bool) {
+	v := m.addlatitude
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetLatitude resets all changes to the "latitude" field.
+func (m *AirportMutation) ResetLatitude() {
+	m.latitude = nil
+	m.addlatitude = nil
+}
+
+// SetLongitude sets the "longitude" field.
+func (m *AirportMutation) SetLongitude(f float64) {
+	m.longitude = &f
+	m.addlongitude = nil
+}
+
+// Longitude returns the value of the "longitude" field in the mutation.
+func (m *AirportMutation) Longitude() (r float64, exists bool) {
+	v := m.longitude
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLongitude returns the old "longitude" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldLongitude(ctx context.Context) (v float64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLongitude is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLongitude requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLongitude: %w", err)
+	}
+	return oldValue.Longitude, nil
+}
+
+// AddLongitude adds f to the "longitude" field.
+func (m *AirportMutation) AddLongitude(f float64) {
+	if m.addlongitude != nil {
+		*m.addlongitude += f
+	} else {
+		m.addlongitude = &f
+	}
+}
+
+// AddedLongitude returns the value that was added to the "longitude" field in this mutation.
+func (m *AirportMutation) AddedLongitude() (r float64, exists bool) {
+	v := m.addlongitude
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetLongitude resets all changes to the "longitude" field.
+func (m *AirportMutation) ResetLongitude() {
+	m.longitude = nil
+	m.addlongitude = nil
+}
+
+// SetAltitude sets the "altitude" field.
+func (m *AirportMutation) SetAltitude(f float64) {
+	m.altitude = &f
+	m.addaltitude = nil
+}
+
+// Altitude returns the value of the "altitude" field in the mutation.
+func (m *AirportMutation) Altitude() (r float64, exists bool) {
+	v := m.altitude
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAltitude returns the old "altitude" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldAltitude(ctx context.Context) (v float64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAltitude is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAltitude requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAltitude: %w", err)
+	}
+	return oldValue.Altitude, nil
+}
+
+// AddAltitude adds f to the "altitude" field.
+func (m *AirportMutation) AddAltitude(f float64) {
+	if m.addaltitude != nil {
+		*m.addaltitude += f
+	} else {
+		m.addaltitude = &f
+	}
+}
+
+// AddedAltitude returns the value that was added to the "altitude" field in this mutation.
+func (m *AirportMutation) AddedAltitude() (r float64, exists bool) {
+	v := m.addaltitude
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetAltitude resets all changes to the "altitude" field.
+func (m *AirportMutation) ResetAltitude() {
+	m.altitude = nil
+	m.addaltitude = nil
+}
+
+// SetTimezone sets the "timezone" field.
+func (m *AirportMutation) SetTimezone(f float64) {
+	m.timezone = &f
+	m.addtimezone = nil
+}
+
+// Timezone returns the value of the "timezone" field in the mutation.
+func (m *AirportMutation) Timezone() (r float64, exists bool) {
+	v := m.timezone
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTimezone returns the old "timezone" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldTimezone(ctx context.Context) (v float64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTimezone is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTimezone requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTimezone: %w", err)
+	}
+	return oldValue.Timezone, nil
+}
+
+// AddTimezone adds f to the "timezone" field.
+func (m *AirportMutation) AddTimezone(f float64) {
+	if m.addtimezone != nil {
+		*m.addtimezone += f
+	} else {
+		m.addtimezone = &f
+	}
+}
+
+// AddedTimezone returns the value that was added to the "timezone" field in this mutation.
+func (m *AirportMutation) AddedTimezone() (r float64, exists bool) {
+	v := m.addtimezone
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTimezone resets all changes to the "timezone" field.
+func (m *AirportMutation) ResetTimezone() {
+	m.timezone = nil
+	m.addtimezone = nil
+}
+
+// SetDst sets the "dst" field.
+func (m *AirportMutation) SetDst(s string) {
+	m.dst = &s
+}
+
+// Dst returns the value of the "dst" field in the mutation.
+func (m *AirportMutation) Dst() (r string, exists bool) {
+	v := m.dst
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDst returns the old "dst" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldDst(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldDst is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldDst requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDst: %w", err)
+	}
+	return oldValue.Dst, nil
+}
+
+// ResetDst resets all changes to the "dst" field.
+func (m *AirportMutation) ResetDst() {
+	m.dst = nil
+}
+
+// SetTimezoneName sets the "timezoneName" field.
+func (m *AirportMutation) SetTimezoneName(s string) {
+	m.timezoneName = &s
+}
+
+// TimezoneName returns the value of the "timezoneName" field in the mutation.
+func (m *AirportMutation) TimezoneName() (r string, exists bool) {
+	v := m.timezoneName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTimezoneName returns the old "timezoneName" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldTimezoneName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldTimezoneName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldTimezoneName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTimezoneName: %w", err)
+	}
+	return oldValue.TimezoneName, nil
+}
+
+// ResetTimezoneName resets all changes to the "timezoneName" field.
+func (m *AirportMutation) ResetTimezoneName() {
+	m.timezoneName = nil
+}
+
+// SetType sets the "type" field.
+func (m *AirportMutation) SetType(s string) {
+	m._type = &s
+}
+
+// GetType returns the value of the "type" field in the mutation.
+func (m *AirportMutation) GetType() (r string, exists bool) {
+	v := m._type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldType returns the old "type" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldType(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldType is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldType: %w", err)
+	}
+	return oldValue.Type, nil
+}
+
+// ResetType resets all changes to the "type" field.
+func (m *AirportMutation) ResetType() {
+	m._type = nil
+}
+
+// SetSource sets the "source" field.
+func (m *AirportMutation) SetSource(s string) {
+	m.source = &s
+}
+
+// Source returns the value of the "source" field in the mutation.
+func (m *AirportMutation) Source() (r string, exists bool) {
+	v := m.source
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSource returns the old "source" field's value of the Airport entity.
+// If the Airport object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AirportMutation) OldSource(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSource is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSource requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSource: %w", err)
+	}
+	return oldValue.Source, nil
+}
+
+// ResetSource resets all changes to the "source" field.
+func (m *AirportMutation) ResetSource() {
+	m.source = nil
+}
+
 // Where appends a list predicates to the AirportMutation builder.
 func (m *AirportMutation) Where(ps ...predicate.Airport) {
 	m.predicates = append(m.predicates, ps...)
@@ -175,7 +741,46 @@ func (m *AirportMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AirportMutation) Fields() []string {
-	fields := make([]string, 0, 0)
+	fields := make([]string, 0, 13)
+	if m.name != nil {
+		fields = append(fields, airport.FieldName)
+	}
+	if m.city != nil {
+		fields = append(fields, airport.FieldCity)
+	}
+	if m.country != nil {
+		fields = append(fields, airport.FieldCountry)
+	}
+	if m.iata != nil {
+		fields = append(fields, airport.FieldIata)
+	}
+	if m.icao != nil {
+		fields = append(fields, airport.FieldIcao)
+	}
+	if m.latitude != nil {
+		fields = append(fields, airport.FieldLatitude)
+	}
+	if m.longitude != nil {
+		fields = append(fields, airport.FieldLongitude)
+	}
+	if m.altitude != nil {
+		fields = append(fields, airport.FieldAltitude)
+	}
+	if m.timezone != nil {
+		fields = append(fields, airport.FieldTimezone)
+	}
+	if m.dst != nil {
+		fields = append(fields, airport.FieldDst)
+	}
+	if m.timezoneName != nil {
+		fields = append(fields, airport.FieldTimezoneName)
+	}
+	if m._type != nil {
+		fields = append(fields, airport.FieldType)
+	}
+	if m.source != nil {
+		fields = append(fields, airport.FieldSource)
+	}
 	return fields
 }
 
@@ -183,6 +788,34 @@ func (m *AirportMutation) Fields() []string {
 // return value indicates that this field was not set, or was not defined in the
 // schema.
 func (m *AirportMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case airport.FieldName:
+		return m.Name()
+	case airport.FieldCity:
+		return m.City()
+	case airport.FieldCountry:
+		return m.Country()
+	case airport.FieldIata:
+		return m.Iata()
+	case airport.FieldIcao:
+		return m.Icao()
+	case airport.FieldLatitude:
+		return m.Latitude()
+	case airport.FieldLongitude:
+		return m.Longitude()
+	case airport.FieldAltitude:
+		return m.Altitude()
+	case airport.FieldTimezone:
+		return m.Timezone()
+	case airport.FieldDst:
+		return m.Dst()
+	case airport.FieldTimezoneName:
+		return m.TimezoneName()
+	case airport.FieldType:
+		return m.GetType()
+	case airport.FieldSource:
+		return m.Source()
+	}
 	return nil, false
 }
 
@@ -190,6 +823,34 @@ func (m *AirportMutation) Field(name string) (ent.Value, bool) {
 // returned if the mutation operation is not UpdateOne, or the query to the
 // database failed.
 func (m *AirportMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case airport.FieldName:
+		return m.OldName(ctx)
+	case airport.FieldCity:
+		return m.OldCity(ctx)
+	case airport.FieldCountry:
+		return m.OldCountry(ctx)
+	case airport.FieldIata:
+		return m.OldIata(ctx)
+	case airport.FieldIcao:
+		return m.OldIcao(ctx)
+	case airport.FieldLatitude:
+		return m.OldLatitude(ctx)
+	case airport.FieldLongitude:
+		return m.OldLongitude(ctx)
+	case airport.FieldAltitude:
+		return m.OldAltitude(ctx)
+	case airport.FieldTimezone:
+		return m.OldTimezone(ctx)
+	case airport.FieldDst:
+		return m.OldDst(ctx)
+	case airport.FieldTimezoneName:
+		return m.OldTimezoneName(ctx)
+	case airport.FieldType:
+		return m.OldType(ctx)
+	case airport.FieldSource:
+		return m.OldSource(ctx)
+	}
 	return nil, fmt.Errorf("unknown Airport field %s", name)
 }
 
@@ -198,6 +859,97 @@ func (m *AirportMutation) OldField(ctx context.Context, name string) (ent.Value,
 // type.
 func (m *AirportMutation) SetField(name string, value ent.Value) error {
 	switch name {
+	case airport.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case airport.FieldCity:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCity(v)
+		return nil
+	case airport.FieldCountry:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCountry(v)
+		return nil
+	case airport.FieldIata:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIata(v)
+		return nil
+	case airport.FieldIcao:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIcao(v)
+		return nil
+	case airport.FieldLatitude:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLatitude(v)
+		return nil
+	case airport.FieldLongitude:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLongitude(v)
+		return nil
+	case airport.FieldAltitude:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAltitude(v)
+		return nil
+	case airport.FieldTimezone:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTimezone(v)
+		return nil
+	case airport.FieldDst:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDst(v)
+		return nil
+	case airport.FieldTimezoneName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTimezoneName(v)
+		return nil
+	case airport.FieldType:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetType(v)
+		return nil
+	case airport.FieldSource:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSource(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Airport field %s", name)
 }
@@ -205,13 +957,36 @@ func (m *AirportMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *AirportMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.addlatitude != nil {
+		fields = append(fields, airport.FieldLatitude)
+	}
+	if m.addlongitude != nil {
+		fields = append(fields, airport.FieldLongitude)
+	}
+	if m.addaltitude != nil {
+		fields = append(fields, airport.FieldAltitude)
+	}
+	if m.addtimezone != nil {
+		fields = append(fields, airport.FieldTimezone)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *AirportMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case airport.FieldLatitude:
+		return m.AddedLatitude()
+	case airport.FieldLongitude:
+		return m.AddedLongitude()
+	case airport.FieldAltitude:
+		return m.AddedAltitude()
+	case airport.FieldTimezone:
+		return m.AddedTimezone()
+	}
 	return nil, false
 }
 
@@ -219,6 +994,36 @@ func (m *AirportMutation) AddedField(name string) (ent.Value, bool) {
 // the field is not defined in the schema, or if the type mismatched the field
 // type.
 func (m *AirportMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case airport.FieldLatitude:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLatitude(v)
+		return nil
+	case airport.FieldLongitude:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLongitude(v)
+		return nil
+	case airport.FieldAltitude:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAltitude(v)
+		return nil
+	case airport.FieldTimezone:
+		v, ok := value.(float64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTimezone(v)
+		return nil
+	}
 	return fmt.Errorf("unknown Airport numeric field %s", name)
 }
 
@@ -244,6 +1049,47 @@ func (m *AirportMutation) ClearField(name string) error {
 // ResetField resets all changes in the mutation for the field with the given name.
 // It returns an error if the field is not defined in the schema.
 func (m *AirportMutation) ResetField(name string) error {
+	switch name {
+	case airport.FieldName:
+		m.ResetName()
+		return nil
+	case airport.FieldCity:
+		m.ResetCity()
+		return nil
+	case airport.FieldCountry:
+		m.ResetCountry()
+		return nil
+	case airport.FieldIata:
+		m.ResetIata()
+		return nil
+	case airport.FieldIcao:
+		m.ResetIcao()
+		return nil
+	case airport.FieldLatitude:
+		m.ResetLatitude()
+		return nil
+	case airport.FieldLongitude:
+		m.ResetLongitude()
+		return nil
+	case airport.FieldAltitude:
+		m.ResetAltitude()
+		return nil
+	case airport.FieldTimezone:
+		m.ResetTimezone()
+		return nil
+	case airport.FieldDst:
+		m.ResetDst()
+		return nil
+	case airport.FieldTimezoneName:
+		m.ResetTimezoneName()
+		return nil
+	case airport.FieldType:
+		m.ResetType()
+		return nil
+	case airport.FieldSource:
+		m.ResetSource()
+		return nil
+	}
 	return fmt.Errorf("unknown Airport field %s", name)
 }
 

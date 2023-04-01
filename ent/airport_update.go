@@ -27,6 +27,112 @@ func (au *AirportUpdate) Where(ps ...predicate.Airport) *AirportUpdate {
 	return au
 }
 
+// SetName sets the "name" field.
+func (au *AirportUpdate) SetName(s string) *AirportUpdate {
+	au.mutation.SetName(s)
+	return au
+}
+
+// SetCity sets the "city" field.
+func (au *AirportUpdate) SetCity(s string) *AirportUpdate {
+	au.mutation.SetCity(s)
+	return au
+}
+
+// SetCountry sets the "country" field.
+func (au *AirportUpdate) SetCountry(s string) *AirportUpdate {
+	au.mutation.SetCountry(s)
+	return au
+}
+
+// SetIata sets the "iata" field.
+func (au *AirportUpdate) SetIata(s string) *AirportUpdate {
+	au.mutation.SetIata(s)
+	return au
+}
+
+// SetIcao sets the "icao" field.
+func (au *AirportUpdate) SetIcao(s string) *AirportUpdate {
+	au.mutation.SetIcao(s)
+	return au
+}
+
+// SetLatitude sets the "latitude" field.
+func (au *AirportUpdate) SetLatitude(f float64) *AirportUpdate {
+	au.mutation.ResetLatitude()
+	au.mutation.SetLatitude(f)
+	return au
+}
+
+// AddLatitude adds f to the "latitude" field.
+func (au *AirportUpdate) AddLatitude(f float64) *AirportUpdate {
+	au.mutation.AddLatitude(f)
+	return au
+}
+
+// SetLongitude sets the "longitude" field.
+func (au *AirportUpdate) SetLongitude(f float64) *AirportUpdate {
+	au.mutation.ResetLongitude()
+	au.mutation.SetLongitude(f)
+	return au
+}
+
+// AddLongitude adds f to the "longitude" field.
+func (au *AirportUpdate) AddLongitude(f float64) *AirportUpdate {
+	au.mutation.AddLongitude(f)
+	return au
+}
+
+// SetAltitude sets the "altitude" field.
+func (au *AirportUpdate) SetAltitude(f float64) *AirportUpdate {
+	au.mutation.ResetAltitude()
+	au.mutation.SetAltitude(f)
+	return au
+}
+
+// AddAltitude adds f to the "altitude" field.
+func (au *AirportUpdate) AddAltitude(f float64) *AirportUpdate {
+	au.mutation.AddAltitude(f)
+	return au
+}
+
+// SetTimezone sets the "timezone" field.
+func (au *AirportUpdate) SetTimezone(f float64) *AirportUpdate {
+	au.mutation.ResetTimezone()
+	au.mutation.SetTimezone(f)
+	return au
+}
+
+// AddTimezone adds f to the "timezone" field.
+func (au *AirportUpdate) AddTimezone(f float64) *AirportUpdate {
+	au.mutation.AddTimezone(f)
+	return au
+}
+
+// SetDst sets the "dst" field.
+func (au *AirportUpdate) SetDst(s string) *AirportUpdate {
+	au.mutation.SetDst(s)
+	return au
+}
+
+// SetTimezoneName sets the "timezoneName" field.
+func (au *AirportUpdate) SetTimezoneName(s string) *AirportUpdate {
+	au.mutation.SetTimezoneName(s)
+	return au
+}
+
+// SetType sets the "type" field.
+func (au *AirportUpdate) SetType(s string) *AirportUpdate {
+	au.mutation.SetType(s)
+	return au
+}
+
+// SetSource sets the "source" field.
+func (au *AirportUpdate) SetSource(s string) *AirportUpdate {
+	au.mutation.SetSource(s)
+	return au
+}
+
 // Mutation returns the AirportMutation object of the builder.
 func (au *AirportUpdate) Mutation() *AirportMutation {
 	return au.mutation
@@ -68,6 +174,57 @@ func (au *AirportUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := au.mutation.Name(); ok {
+		_spec.SetField(airport.FieldName, field.TypeString, value)
+	}
+	if value, ok := au.mutation.City(); ok {
+		_spec.SetField(airport.FieldCity, field.TypeString, value)
+	}
+	if value, ok := au.mutation.Country(); ok {
+		_spec.SetField(airport.FieldCountry, field.TypeString, value)
+	}
+	if value, ok := au.mutation.Iata(); ok {
+		_spec.SetField(airport.FieldIata, field.TypeString, value)
+	}
+	if value, ok := au.mutation.Icao(); ok {
+		_spec.SetField(airport.FieldIcao, field.TypeString, value)
+	}
+	if value, ok := au.mutation.Latitude(); ok {
+		_spec.SetField(airport.FieldLatitude, field.TypeFloat64, value)
+	}
+	if value, ok := au.mutation.AddedLatitude(); ok {
+		_spec.AddField(airport.FieldLatitude, field.TypeFloat64, value)
+	}
+	if value, ok := au.mutation.Longitude(); ok {
+		_spec.SetField(airport.FieldLongitude, field.TypeFloat64, value)
+	}
+	if value, ok := au.mutation.AddedLongitude(); ok {
+		_spec.AddField(airport.FieldLongitude, field.TypeFloat64, value)
+	}
+	if value, ok := au.mutation.Altitude(); ok {
+		_spec.SetField(airport.FieldAltitude, field.TypeFloat64, value)
+	}
+	if value, ok := au.mutation.AddedAltitude(); ok {
+		_spec.AddField(airport.FieldAltitude, field.TypeFloat64, value)
+	}
+	if value, ok := au.mutation.Timezone(); ok {
+		_spec.SetField(airport.FieldTimezone, field.TypeFloat64, value)
+	}
+	if value, ok := au.mutation.AddedTimezone(); ok {
+		_spec.AddField(airport.FieldTimezone, field.TypeFloat64, value)
+	}
+	if value, ok := au.mutation.Dst(); ok {
+		_spec.SetField(airport.FieldDst, field.TypeString, value)
+	}
+	if value, ok := au.mutation.TimezoneName(); ok {
+		_spec.SetField(airport.FieldTimezoneName, field.TypeString, value)
+	}
+	if value, ok := au.mutation.GetType(); ok {
+		_spec.SetField(airport.FieldType, field.TypeString, value)
+	}
+	if value, ok := au.mutation.Source(); ok {
+		_spec.SetField(airport.FieldSource, field.TypeString, value)
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{airport.Label}
@@ -86,6 +243,112 @@ type AirportUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *AirportMutation
+}
+
+// SetName sets the "name" field.
+func (auo *AirportUpdateOne) SetName(s string) *AirportUpdateOne {
+	auo.mutation.SetName(s)
+	return auo
+}
+
+// SetCity sets the "city" field.
+func (auo *AirportUpdateOne) SetCity(s string) *AirportUpdateOne {
+	auo.mutation.SetCity(s)
+	return auo
+}
+
+// SetCountry sets the "country" field.
+func (auo *AirportUpdateOne) SetCountry(s string) *AirportUpdateOne {
+	auo.mutation.SetCountry(s)
+	return auo
+}
+
+// SetIata sets the "iata" field.
+func (auo *AirportUpdateOne) SetIata(s string) *AirportUpdateOne {
+	auo.mutation.SetIata(s)
+	return auo
+}
+
+// SetIcao sets the "icao" field.
+func (auo *AirportUpdateOne) SetIcao(s string) *AirportUpdateOne {
+	auo.mutation.SetIcao(s)
+	return auo
+}
+
+// SetLatitude sets the "latitude" field.
+func (auo *AirportUpdateOne) SetLatitude(f float64) *AirportUpdateOne {
+	auo.mutation.ResetLatitude()
+	auo.mutation.SetLatitude(f)
+	return auo
+}
+
+// AddLatitude adds f to the "latitude" field.
+func (auo *AirportUpdateOne) AddLatitude(f float64) *AirportUpdateOne {
+	auo.mutation.AddLatitude(f)
+	return auo
+}
+
+// SetLongitude sets the "longitude" field.
+func (auo *AirportUpdateOne) SetLongitude(f float64) *AirportUpdateOne {
+	auo.mutation.ResetLongitude()
+	auo.mutation.SetLongitude(f)
+	return auo
+}
+
+// AddLongitude adds f to the "longitude" field.
+func (auo *AirportUpdateOne) AddLongitude(f float64) *AirportUpdateOne {
+	auo.mutation.AddLongitude(f)
+	return auo
+}
+
+// SetAltitude sets the "altitude" field.
+func (auo *AirportUpdateOne) SetAltitude(f float64) *AirportUpdateOne {
+	auo.mutation.ResetAltitude()
+	auo.mutation.SetAltitude(f)
+	return auo
+}
+
+// AddAltitude adds f to the "altitude" field.
+func (auo *AirportUpdateOne) AddAltitude(f float64) *AirportUpdateOne {
+	auo.mutation.AddAltitude(f)
+	return auo
+}
+
+// SetTimezone sets the "timezone" field.
+func (auo *AirportUpdateOne) SetTimezone(f float64) *AirportUpdateOne {
+	auo.mutation.ResetTimezone()
+	auo.mutation.SetTimezone(f)
+	return auo
+}
+
+// AddTimezone adds f to the "timezone" field.
+func (auo *AirportUpdateOne) AddTimezone(f float64) *AirportUpdateOne {
+	auo.mutation.AddTimezone(f)
+	return auo
+}
+
+// SetDst sets the "dst" field.
+func (auo *AirportUpdateOne) SetDst(s string) *AirportUpdateOne {
+	auo.mutation.SetDst(s)
+	return auo
+}
+
+// SetTimezoneName sets the "timezoneName" field.
+func (auo *AirportUpdateOne) SetTimezoneName(s string) *AirportUpdateOne {
+	auo.mutation.SetTimezoneName(s)
+	return auo
+}
+
+// SetType sets the "type" field.
+func (auo *AirportUpdateOne) SetType(s string) *AirportUpdateOne {
+	auo.mutation.SetType(s)
+	return auo
+}
+
+// SetSource sets the "source" field.
+func (auo *AirportUpdateOne) SetSource(s string) *AirportUpdateOne {
+	auo.mutation.SetSource(s)
+	return auo
 }
 
 // Mutation returns the AirportMutation object of the builder.
@@ -158,6 +421,57 @@ func (auo *AirportUpdateOne) sqlSave(ctx context.Context) (_node *Airport, err e
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := auo.mutation.Name(); ok {
+		_spec.SetField(airport.FieldName, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.City(); ok {
+		_spec.SetField(airport.FieldCity, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.Country(); ok {
+		_spec.SetField(airport.FieldCountry, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.Iata(); ok {
+		_spec.SetField(airport.FieldIata, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.Icao(); ok {
+		_spec.SetField(airport.FieldIcao, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.Latitude(); ok {
+		_spec.SetField(airport.FieldLatitude, field.TypeFloat64, value)
+	}
+	if value, ok := auo.mutation.AddedLatitude(); ok {
+		_spec.AddField(airport.FieldLatitude, field.TypeFloat64, value)
+	}
+	if value, ok := auo.mutation.Longitude(); ok {
+		_spec.SetField(airport.FieldLongitude, field.TypeFloat64, value)
+	}
+	if value, ok := auo.mutation.AddedLongitude(); ok {
+		_spec.AddField(airport.FieldLongitude, field.TypeFloat64, value)
+	}
+	if value, ok := auo.mutation.Altitude(); ok {
+		_spec.SetField(airport.FieldAltitude, field.TypeFloat64, value)
+	}
+	if value, ok := auo.mutation.AddedAltitude(); ok {
+		_spec.AddField(airport.FieldAltitude, field.TypeFloat64, value)
+	}
+	if value, ok := auo.mutation.Timezone(); ok {
+		_spec.SetField(airport.FieldTimezone, field.TypeFloat64, value)
+	}
+	if value, ok := auo.mutation.AddedTimezone(); ok {
+		_spec.AddField(airport.FieldTimezone, field.TypeFloat64, value)
+	}
+	if value, ok := auo.mutation.Dst(); ok {
+		_spec.SetField(airport.FieldDst, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.TimezoneName(); ok {
+		_spec.SetField(airport.FieldTimezoneName, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.GetType(); ok {
+		_spec.SetField(airport.FieldType, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.Source(); ok {
+		_spec.SetField(airport.FieldSource, field.TypeString, value)
 	}
 	_node = &Airport{config: auo.config}
 	_spec.Assign = _node.assignValues
