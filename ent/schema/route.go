@@ -14,9 +14,10 @@ type Route struct {
 func (Route) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int("id").Unique().Immutable(),
-		field.String("airline"),
+		field.Int("airlineId"),
 		field.Int("sourceAirportId"),
 		field.Int("destinationAirportId"),
+		field.Int("planeId"),
 		field.Int("numberOfStops"),
 	}
 }

@@ -7,12 +7,14 @@ const (
 	Label = "route"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldAirline holds the string denoting the airline field in the database.
-	FieldAirline = "airline"
+	// FieldAirlineId holds the string denoting the airlineid field in the database.
+	FieldAirlineId = "airline_id"
 	// FieldSourceAirportId holds the string denoting the sourceairportid field in the database.
 	FieldSourceAirportId = "source_airport_id"
 	// FieldDestinationAirportId holds the string denoting the destinationairportid field in the database.
 	FieldDestinationAirportId = "destination_airport_id"
+	// FieldPlaneId holds the string denoting the planeid field in the database.
+	FieldPlaneId = "plane_id"
 	// FieldNumberOfStops holds the string denoting the numberofstops field in the database.
 	FieldNumberOfStops = "number_of_stops"
 	// Table holds the table name of the route in the database.
@@ -22,9 +24,10 @@ const (
 // Columns holds all SQL columns for route fields.
 var Columns = []string{
 	FieldID,
-	FieldAirline,
+	FieldAirlineId,
 	FieldSourceAirportId,
 	FieldDestinationAirportId,
+	FieldPlaneId,
 	FieldNumberOfStops,
 }
 

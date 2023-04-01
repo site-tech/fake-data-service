@@ -15,12 +15,14 @@ type Route struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
-	// Airline holds the value of the "airline" field.
-	Airline string `json:"airline,omitempty"`
+	// AirlineId holds the value of the "airlineId" field.
+	AirlineId int `json:"airlineId,omitempty"`
 	// SourceAirportId holds the value of the "sourceAirportId" field.
 	SourceAirportId int `json:"sourceAirportId,omitempty"`
 	// DestinationAirportId holds the value of the "destinationAirportId" field.
 	DestinationAirportId int `json:"destinationAirportId,omitempty"`
+	// PlaneId holds the value of the "planeId" field.
+	PlaneId int `json:"planeId,omitempty"`
 	// NumberOfStops holds the value of the "numberOfStops" field.
 	NumberOfStops int `json:"numberOfStops,omitempty"`
 }
@@ -30,10 +32,8 @@ func (*Route) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case route.FieldID, route.FieldSourceAirportId, route.FieldDestinationAirportId, route.FieldNumberOfStops:
+		case route.FieldID, route.FieldAirlineId, route.FieldSourceAirportId, route.FieldDestinationAirportId, route.FieldPlaneId, route.FieldNumberOfStops:
 			values[i] = new(sql.NullInt64)
-		case route.FieldAirline:
-			values[i] = new(sql.NullString)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Route", columns[i])
 		}
@@ -55,11 +55,11 @@ func (r *Route) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			r.ID = int(value.Int64)
-		case route.FieldAirline:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field airline", values[i])
+		case route.FieldAirlineId:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field airlineId", values[i])
 			} else if value.Valid {
-				r.Airline = value.String
+				r.AirlineId = int(value.Int64)
 			}
 		case route.FieldSourceAirportId:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -72,6 +72,12 @@ func (r *Route) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field destinationAirportId", values[i])
 			} else if value.Valid {
 				r.DestinationAirportId = int(value.Int64)
+			}
+		case route.FieldPlaneId:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field planeId", values[i])
+			} else if value.Valid {
+				r.PlaneId = int(value.Int64)
 			}
 		case route.FieldNumberOfStops:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -107,14 +113,17 @@ func (r *Route) String() string {
 	var builder strings.Builder
 	builder.WriteString("Route(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", r.ID))
-	builder.WriteString("airline=")
-	builder.WriteString(r.Airline)
+	builder.WriteString("airlineId=")
+	builder.WriteString(fmt.Sprintf("%v", r.AirlineId))
 	builder.WriteString(", ")
 	builder.WriteString("sourceAirportId=")
 	builder.WriteString(fmt.Sprintf("%v", r.SourceAirportId))
 	builder.WriteString(", ")
 	builder.WriteString("destinationAirportId=")
 	builder.WriteString(fmt.Sprintf("%v", r.DestinationAirportId))
+	builder.WriteString(", ")
+	builder.WriteString("planeId=")
+	builder.WriteString(fmt.Sprintf("%v", r.PlaneId))
 	builder.WriteString(", ")
 	builder.WriteString("numberOfStops=")
 	builder.WriteString(fmt.Sprintf("%v", r.NumberOfStops))

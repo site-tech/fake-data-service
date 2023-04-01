@@ -261,12 +261,12 @@ func (rq *RouteQuery) Clone() *RouteQuery {
 // Example:
 //
 //	var v []struct {
-//		Airline string `json:"airline,omitempty"`
+//		AirlineId int `json:"airlineId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Route.Query().
-//		GroupBy(route.FieldAirline).
+//		GroupBy(route.FieldAirlineId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (rq *RouteQuery) GroupBy(field string, fields ...string) *RouteGroupBy {
@@ -284,11 +284,11 @@ func (rq *RouteQuery) GroupBy(field string, fields ...string) *RouteGroupBy {
 // Example:
 //
 //	var v []struct {
-//		Airline string `json:"airline,omitempty"`
+//		AirlineId int `json:"airlineId,omitempty"`
 //	}
 //
 //	client.Route.Query().
-//		Select(route.FieldAirline).
+//		Select(route.FieldAirlineId).
 //		Scan(ctx, &v)
 func (rq *RouteQuery) Select(fields ...string) *RouteSelect {
 	rq.ctx.Fields = append(rq.ctx.Fields, fields...)

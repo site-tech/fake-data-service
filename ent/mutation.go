@@ -2253,11 +2253,14 @@ type RouteMutation struct {
 	op                      Op
 	typ                     string
 	id                      *int
-	airline                 *string
+	airlineId               *int
+	addairlineId            *int
 	sourceAirportId         *int
 	addsourceAirportId      *int
 	destinationAirportId    *int
 	adddestinationAirportId *int
+	planeId                 *int
+	addplaneId              *int
 	numberOfStops           *int
 	addnumberOfStops        *int
 	clearedFields           map[string]struct{}
@@ -2370,40 +2373,60 @@ func (m *RouteMutation) IDs(ctx context.Context) ([]int, error) {
 	}
 }
 
-// SetAirline sets the "airline" field.
-func (m *RouteMutation) SetAirline(s string) {
-	m.airline = &s
+// SetAirlineId sets the "airlineId" field.
+func (m *RouteMutation) SetAirlineId(i int) {
+	m.airlineId = &i
+	m.addairlineId = nil
 }
 
-// Airline returns the value of the "airline" field in the mutation.
-func (m *RouteMutation) Airline() (r string, exists bool) {
-	v := m.airline
+// AirlineId returns the value of the "airlineId" field in the mutation.
+func (m *RouteMutation) AirlineId() (r int, exists bool) {
+	v := m.airlineId
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldAirline returns the old "airline" field's value of the Route entity.
+// OldAirlineId returns the old "airlineId" field's value of the Route entity.
 // If the Route object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *RouteMutation) OldAirline(ctx context.Context) (v string, err error) {
+func (m *RouteMutation) OldAirlineId(ctx context.Context) (v int, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldAirline is only allowed on UpdateOne operations")
+		return v, errors.New("OldAirlineId is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldAirline requires an ID field in the mutation")
+		return v, errors.New("OldAirlineId requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldAirline: %w", err)
+		return v, fmt.Errorf("querying old value for OldAirlineId: %w", err)
 	}
-	return oldValue.Airline, nil
+	return oldValue.AirlineId, nil
 }
 
-// ResetAirline resets all changes to the "airline" field.
-func (m *RouteMutation) ResetAirline() {
-	m.airline = nil
+// AddAirlineId adds i to the "airlineId" field.
+func (m *RouteMutation) AddAirlineId(i int) {
+	if m.addairlineId != nil {
+		*m.addairlineId += i
+	} else {
+		m.addairlineId = &i
+	}
+}
+
+// AddedAirlineId returns the value that was added to the "airlineId" field in this mutation.
+func (m *RouteMutation) AddedAirlineId() (r int, exists bool) {
+	v := m.addairlineId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetAirlineId resets all changes to the "airlineId" field.
+func (m *RouteMutation) ResetAirlineId() {
+	m.airlineId = nil
+	m.addairlineId = nil
 }
 
 // SetSourceAirportId sets the "sourceAirportId" field.
@@ -2518,6 +2541,62 @@ func (m *RouteMutation) ResetDestinationAirportId() {
 	m.adddestinationAirportId = nil
 }
 
+// SetPlaneId sets the "planeId" field.
+func (m *RouteMutation) SetPlaneId(i int) {
+	m.planeId = &i
+	m.addplaneId = nil
+}
+
+// PlaneId returns the value of the "planeId" field in the mutation.
+func (m *RouteMutation) PlaneId() (r int, exists bool) {
+	v := m.planeId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPlaneId returns the old "planeId" field's value of the Route entity.
+// If the Route object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *RouteMutation) OldPlaneId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPlaneId is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPlaneId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPlaneId: %w", err)
+	}
+	return oldValue.PlaneId, nil
+}
+
+// AddPlaneId adds i to the "planeId" field.
+func (m *RouteMutation) AddPlaneId(i int) {
+	if m.addplaneId != nil {
+		*m.addplaneId += i
+	} else {
+		m.addplaneId = &i
+	}
+}
+
+// AddedPlaneId returns the value that was added to the "planeId" field in this mutation.
+func (m *RouteMutation) AddedPlaneId() (r int, exists bool) {
+	v := m.addplaneId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetPlaneId resets all changes to the "planeId" field.
+func (m *RouteMutation) ResetPlaneId() {
+	m.planeId = nil
+	m.addplaneId = nil
+}
+
 // SetNumberOfStops sets the "numberOfStops" field.
 func (m *RouteMutation) SetNumberOfStops(i int) {
 	m.numberOfStops = &i
@@ -2608,15 +2687,18 @@ func (m *RouteMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *RouteMutation) Fields() []string {
-	fields := make([]string, 0, 4)
-	if m.airline != nil {
-		fields = append(fields, route.FieldAirline)
+	fields := make([]string, 0, 5)
+	if m.airlineId != nil {
+		fields = append(fields, route.FieldAirlineId)
 	}
 	if m.sourceAirportId != nil {
 		fields = append(fields, route.FieldSourceAirportId)
 	}
 	if m.destinationAirportId != nil {
 		fields = append(fields, route.FieldDestinationAirportId)
+	}
+	if m.planeId != nil {
+		fields = append(fields, route.FieldPlaneId)
 	}
 	if m.numberOfStops != nil {
 		fields = append(fields, route.FieldNumberOfStops)
@@ -2629,12 +2711,14 @@ func (m *RouteMutation) Fields() []string {
 // schema.
 func (m *RouteMutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case route.FieldAirline:
-		return m.Airline()
+	case route.FieldAirlineId:
+		return m.AirlineId()
 	case route.FieldSourceAirportId:
 		return m.SourceAirportId()
 	case route.FieldDestinationAirportId:
 		return m.DestinationAirportId()
+	case route.FieldPlaneId:
+		return m.PlaneId()
 	case route.FieldNumberOfStops:
 		return m.NumberOfStops()
 	}
@@ -2646,12 +2730,14 @@ func (m *RouteMutation) Field(name string) (ent.Value, bool) {
 // database failed.
 func (m *RouteMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
-	case route.FieldAirline:
-		return m.OldAirline(ctx)
+	case route.FieldAirlineId:
+		return m.OldAirlineId(ctx)
 	case route.FieldSourceAirportId:
 		return m.OldSourceAirportId(ctx)
 	case route.FieldDestinationAirportId:
 		return m.OldDestinationAirportId(ctx)
+	case route.FieldPlaneId:
+		return m.OldPlaneId(ctx)
 	case route.FieldNumberOfStops:
 		return m.OldNumberOfStops(ctx)
 	}
@@ -2663,12 +2749,12 @@ func (m *RouteMutation) OldField(ctx context.Context, name string) (ent.Value, e
 // type.
 func (m *RouteMutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case route.FieldAirline:
-		v, ok := value.(string)
+	case route.FieldAirlineId:
+		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetAirline(v)
+		m.SetAirlineId(v)
 		return nil
 	case route.FieldSourceAirportId:
 		v, ok := value.(int)
@@ -2683,6 +2769,13 @@ func (m *RouteMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetDestinationAirportId(v)
+		return nil
+	case route.FieldPlaneId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPlaneId(v)
 		return nil
 	case route.FieldNumberOfStops:
 		v, ok := value.(int)
@@ -2699,11 +2792,17 @@ func (m *RouteMutation) SetField(name string, value ent.Value) error {
 // this mutation.
 func (m *RouteMutation) AddedFields() []string {
 	var fields []string
+	if m.addairlineId != nil {
+		fields = append(fields, route.FieldAirlineId)
+	}
 	if m.addsourceAirportId != nil {
 		fields = append(fields, route.FieldSourceAirportId)
 	}
 	if m.adddestinationAirportId != nil {
 		fields = append(fields, route.FieldDestinationAirportId)
+	}
+	if m.addplaneId != nil {
+		fields = append(fields, route.FieldPlaneId)
 	}
 	if m.addnumberOfStops != nil {
 		fields = append(fields, route.FieldNumberOfStops)
@@ -2716,10 +2815,14 @@ func (m *RouteMutation) AddedFields() []string {
 // was not set, or was not defined in the schema.
 func (m *RouteMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case route.FieldAirlineId:
+		return m.AddedAirlineId()
 	case route.FieldSourceAirportId:
 		return m.AddedSourceAirportId()
 	case route.FieldDestinationAirportId:
 		return m.AddedDestinationAirportId()
+	case route.FieldPlaneId:
+		return m.AddedPlaneId()
 	case route.FieldNumberOfStops:
 		return m.AddedNumberOfStops()
 	}
@@ -2731,6 +2834,13 @@ func (m *RouteMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *RouteMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case route.FieldAirlineId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAirlineId(v)
+		return nil
 	case route.FieldSourceAirportId:
 		v, ok := value.(int)
 		if !ok {
@@ -2744,6 +2854,13 @@ func (m *RouteMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddDestinationAirportId(v)
+		return nil
+	case route.FieldPlaneId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddPlaneId(v)
 		return nil
 	case route.FieldNumberOfStops:
 		v, ok := value.(int)
@@ -2779,14 +2896,17 @@ func (m *RouteMutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *RouteMutation) ResetField(name string) error {
 	switch name {
-	case route.FieldAirline:
-		m.ResetAirline()
+	case route.FieldAirlineId:
+		m.ResetAirlineId()
 		return nil
 	case route.FieldSourceAirportId:
 		m.ResetSourceAirportId()
 		return nil
 	case route.FieldDestinationAirportId:
 		m.ResetDestinationAirportId()
+		return nil
+	case route.FieldPlaneId:
+		m.ResetPlaneId()
 		return nil
 	case route.FieldNumberOfStops:
 		m.ResetNumberOfStops()

@@ -52,9 +52,9 @@ func IDLTE(id int) predicate.Route {
 	return predicate.Route(sql.FieldLTE(FieldID, id))
 }
 
-// Airline applies equality check predicate on the "airline" field. It's identical to AirlineEQ.
-func Airline(v string) predicate.Route {
-	return predicate.Route(sql.FieldEQ(FieldAirline, v))
+// AirlineId applies equality check predicate on the "airlineId" field. It's identical to AirlineIdEQ.
+func AirlineId(v int) predicate.Route {
+	return predicate.Route(sql.FieldEQ(FieldAirlineId, v))
 }
 
 // SourceAirportId applies equality check predicate on the "sourceAirportId" field. It's identical to SourceAirportIdEQ.
@@ -67,74 +67,54 @@ func DestinationAirportId(v int) predicate.Route {
 	return predicate.Route(sql.FieldEQ(FieldDestinationAirportId, v))
 }
 
+// PlaneId applies equality check predicate on the "planeId" field. It's identical to PlaneIdEQ.
+func PlaneId(v int) predicate.Route {
+	return predicate.Route(sql.FieldEQ(FieldPlaneId, v))
+}
+
 // NumberOfStops applies equality check predicate on the "numberOfStops" field. It's identical to NumberOfStopsEQ.
 func NumberOfStops(v int) predicate.Route {
 	return predicate.Route(sql.FieldEQ(FieldNumberOfStops, v))
 }
 
-// AirlineEQ applies the EQ predicate on the "airline" field.
-func AirlineEQ(v string) predicate.Route {
-	return predicate.Route(sql.FieldEQ(FieldAirline, v))
+// AirlineIdEQ applies the EQ predicate on the "airlineId" field.
+func AirlineIdEQ(v int) predicate.Route {
+	return predicate.Route(sql.FieldEQ(FieldAirlineId, v))
 }
 
-// AirlineNEQ applies the NEQ predicate on the "airline" field.
-func AirlineNEQ(v string) predicate.Route {
-	return predicate.Route(sql.FieldNEQ(FieldAirline, v))
+// AirlineIdNEQ applies the NEQ predicate on the "airlineId" field.
+func AirlineIdNEQ(v int) predicate.Route {
+	return predicate.Route(sql.FieldNEQ(FieldAirlineId, v))
 }
 
-// AirlineIn applies the In predicate on the "airline" field.
-func AirlineIn(vs ...string) predicate.Route {
-	return predicate.Route(sql.FieldIn(FieldAirline, vs...))
+// AirlineIdIn applies the In predicate on the "airlineId" field.
+func AirlineIdIn(vs ...int) predicate.Route {
+	return predicate.Route(sql.FieldIn(FieldAirlineId, vs...))
 }
 
-// AirlineNotIn applies the NotIn predicate on the "airline" field.
-func AirlineNotIn(vs ...string) predicate.Route {
-	return predicate.Route(sql.FieldNotIn(FieldAirline, vs...))
+// AirlineIdNotIn applies the NotIn predicate on the "airlineId" field.
+func AirlineIdNotIn(vs ...int) predicate.Route {
+	return predicate.Route(sql.FieldNotIn(FieldAirlineId, vs...))
 }
 
-// AirlineGT applies the GT predicate on the "airline" field.
-func AirlineGT(v string) predicate.Route {
-	return predicate.Route(sql.FieldGT(FieldAirline, v))
+// AirlineIdGT applies the GT predicate on the "airlineId" field.
+func AirlineIdGT(v int) predicate.Route {
+	return predicate.Route(sql.FieldGT(FieldAirlineId, v))
 }
 
-// AirlineGTE applies the GTE predicate on the "airline" field.
-func AirlineGTE(v string) predicate.Route {
-	return predicate.Route(sql.FieldGTE(FieldAirline, v))
+// AirlineIdGTE applies the GTE predicate on the "airlineId" field.
+func AirlineIdGTE(v int) predicate.Route {
+	return predicate.Route(sql.FieldGTE(FieldAirlineId, v))
 }
 
-// AirlineLT applies the LT predicate on the "airline" field.
-func AirlineLT(v string) predicate.Route {
-	return predicate.Route(sql.FieldLT(FieldAirline, v))
+// AirlineIdLT applies the LT predicate on the "airlineId" field.
+func AirlineIdLT(v int) predicate.Route {
+	return predicate.Route(sql.FieldLT(FieldAirlineId, v))
 }
 
-// AirlineLTE applies the LTE predicate on the "airline" field.
-func AirlineLTE(v string) predicate.Route {
-	return predicate.Route(sql.FieldLTE(FieldAirline, v))
-}
-
-// AirlineContains applies the Contains predicate on the "airline" field.
-func AirlineContains(v string) predicate.Route {
-	return predicate.Route(sql.FieldContains(FieldAirline, v))
-}
-
-// AirlineHasPrefix applies the HasPrefix predicate on the "airline" field.
-func AirlineHasPrefix(v string) predicate.Route {
-	return predicate.Route(sql.FieldHasPrefix(FieldAirline, v))
-}
-
-// AirlineHasSuffix applies the HasSuffix predicate on the "airline" field.
-func AirlineHasSuffix(v string) predicate.Route {
-	return predicate.Route(sql.FieldHasSuffix(FieldAirline, v))
-}
-
-// AirlineEqualFold applies the EqualFold predicate on the "airline" field.
-func AirlineEqualFold(v string) predicate.Route {
-	return predicate.Route(sql.FieldEqualFold(FieldAirline, v))
-}
-
-// AirlineContainsFold applies the ContainsFold predicate on the "airline" field.
-func AirlineContainsFold(v string) predicate.Route {
-	return predicate.Route(sql.FieldContainsFold(FieldAirline, v))
+// AirlineIdLTE applies the LTE predicate on the "airlineId" field.
+func AirlineIdLTE(v int) predicate.Route {
+	return predicate.Route(sql.FieldLTE(FieldAirlineId, v))
 }
 
 // SourceAirportIdEQ applies the EQ predicate on the "sourceAirportId" field.
@@ -215,6 +195,46 @@ func DestinationAirportIdLT(v int) predicate.Route {
 // DestinationAirportIdLTE applies the LTE predicate on the "destinationAirportId" field.
 func DestinationAirportIdLTE(v int) predicate.Route {
 	return predicate.Route(sql.FieldLTE(FieldDestinationAirportId, v))
+}
+
+// PlaneIdEQ applies the EQ predicate on the "planeId" field.
+func PlaneIdEQ(v int) predicate.Route {
+	return predicate.Route(sql.FieldEQ(FieldPlaneId, v))
+}
+
+// PlaneIdNEQ applies the NEQ predicate on the "planeId" field.
+func PlaneIdNEQ(v int) predicate.Route {
+	return predicate.Route(sql.FieldNEQ(FieldPlaneId, v))
+}
+
+// PlaneIdIn applies the In predicate on the "planeId" field.
+func PlaneIdIn(vs ...int) predicate.Route {
+	return predicate.Route(sql.FieldIn(FieldPlaneId, vs...))
+}
+
+// PlaneIdNotIn applies the NotIn predicate on the "planeId" field.
+func PlaneIdNotIn(vs ...int) predicate.Route {
+	return predicate.Route(sql.FieldNotIn(FieldPlaneId, vs...))
+}
+
+// PlaneIdGT applies the GT predicate on the "planeId" field.
+func PlaneIdGT(v int) predicate.Route {
+	return predicate.Route(sql.FieldGT(FieldPlaneId, v))
+}
+
+// PlaneIdGTE applies the GTE predicate on the "planeId" field.
+func PlaneIdGTE(v int) predicate.Route {
+	return predicate.Route(sql.FieldGTE(FieldPlaneId, v))
+}
+
+// PlaneIdLT applies the LT predicate on the "planeId" field.
+func PlaneIdLT(v int) predicate.Route {
+	return predicate.Route(sql.FieldLT(FieldPlaneId, v))
+}
+
+// PlaneIdLTE applies the LTE predicate on the "planeId" field.
+func PlaneIdLTE(v int) predicate.Route {
+	return predicate.Route(sql.FieldLTE(FieldPlaneId, v))
 }
 
 // NumberOfStopsEQ applies the EQ predicate on the "numberOfStops" field.

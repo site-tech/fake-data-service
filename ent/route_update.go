@@ -27,9 +27,16 @@ func (ru *RouteUpdate) Where(ps ...predicate.Route) *RouteUpdate {
 	return ru
 }
 
-// SetAirline sets the "airline" field.
-func (ru *RouteUpdate) SetAirline(s string) *RouteUpdate {
-	ru.mutation.SetAirline(s)
+// SetAirlineId sets the "airlineId" field.
+func (ru *RouteUpdate) SetAirlineId(i int) *RouteUpdate {
+	ru.mutation.ResetAirlineId()
+	ru.mutation.SetAirlineId(i)
+	return ru
+}
+
+// AddAirlineId adds i to the "airlineId" field.
+func (ru *RouteUpdate) AddAirlineId(i int) *RouteUpdate {
+	ru.mutation.AddAirlineId(i)
 	return ru
 }
 
@@ -56,6 +63,19 @@ func (ru *RouteUpdate) SetDestinationAirportId(i int) *RouteUpdate {
 // AddDestinationAirportId adds i to the "destinationAirportId" field.
 func (ru *RouteUpdate) AddDestinationAirportId(i int) *RouteUpdate {
 	ru.mutation.AddDestinationAirportId(i)
+	return ru
+}
+
+// SetPlaneId sets the "planeId" field.
+func (ru *RouteUpdate) SetPlaneId(i int) *RouteUpdate {
+	ru.mutation.ResetPlaneId()
+	ru.mutation.SetPlaneId(i)
+	return ru
+}
+
+// AddPlaneId adds i to the "planeId" field.
+func (ru *RouteUpdate) AddPlaneId(i int) *RouteUpdate {
+	ru.mutation.AddPlaneId(i)
 	return ru
 }
 
@@ -113,8 +133,11 @@ func (ru *RouteUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := ru.mutation.Airline(); ok {
-		_spec.SetField(route.FieldAirline, field.TypeString, value)
+	if value, ok := ru.mutation.AirlineId(); ok {
+		_spec.SetField(route.FieldAirlineId, field.TypeInt, value)
+	}
+	if value, ok := ru.mutation.AddedAirlineId(); ok {
+		_spec.AddField(route.FieldAirlineId, field.TypeInt, value)
 	}
 	if value, ok := ru.mutation.SourceAirportId(); ok {
 		_spec.SetField(route.FieldSourceAirportId, field.TypeInt, value)
@@ -127,6 +150,12 @@ func (ru *RouteUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := ru.mutation.AddedDestinationAirportId(); ok {
 		_spec.AddField(route.FieldDestinationAirportId, field.TypeInt, value)
+	}
+	if value, ok := ru.mutation.PlaneId(); ok {
+		_spec.SetField(route.FieldPlaneId, field.TypeInt, value)
+	}
+	if value, ok := ru.mutation.AddedPlaneId(); ok {
+		_spec.AddField(route.FieldPlaneId, field.TypeInt, value)
 	}
 	if value, ok := ru.mutation.NumberOfStops(); ok {
 		_spec.SetField(route.FieldNumberOfStops, field.TypeInt, value)
@@ -154,9 +183,16 @@ type RouteUpdateOne struct {
 	mutation *RouteMutation
 }
 
-// SetAirline sets the "airline" field.
-func (ruo *RouteUpdateOne) SetAirline(s string) *RouteUpdateOne {
-	ruo.mutation.SetAirline(s)
+// SetAirlineId sets the "airlineId" field.
+func (ruo *RouteUpdateOne) SetAirlineId(i int) *RouteUpdateOne {
+	ruo.mutation.ResetAirlineId()
+	ruo.mutation.SetAirlineId(i)
+	return ruo
+}
+
+// AddAirlineId adds i to the "airlineId" field.
+func (ruo *RouteUpdateOne) AddAirlineId(i int) *RouteUpdateOne {
+	ruo.mutation.AddAirlineId(i)
 	return ruo
 }
 
@@ -183,6 +219,19 @@ func (ruo *RouteUpdateOne) SetDestinationAirportId(i int) *RouteUpdateOne {
 // AddDestinationAirportId adds i to the "destinationAirportId" field.
 func (ruo *RouteUpdateOne) AddDestinationAirportId(i int) *RouteUpdateOne {
 	ruo.mutation.AddDestinationAirportId(i)
+	return ruo
+}
+
+// SetPlaneId sets the "planeId" field.
+func (ruo *RouteUpdateOne) SetPlaneId(i int) *RouteUpdateOne {
+	ruo.mutation.ResetPlaneId()
+	ruo.mutation.SetPlaneId(i)
+	return ruo
+}
+
+// AddPlaneId adds i to the "planeId" field.
+func (ruo *RouteUpdateOne) AddPlaneId(i int) *RouteUpdateOne {
+	ruo.mutation.AddPlaneId(i)
 	return ruo
 }
 
@@ -270,8 +319,11 @@ func (ruo *RouteUpdateOne) sqlSave(ctx context.Context) (_node *Route, err error
 			}
 		}
 	}
-	if value, ok := ruo.mutation.Airline(); ok {
-		_spec.SetField(route.FieldAirline, field.TypeString, value)
+	if value, ok := ruo.mutation.AirlineId(); ok {
+		_spec.SetField(route.FieldAirlineId, field.TypeInt, value)
+	}
+	if value, ok := ruo.mutation.AddedAirlineId(); ok {
+		_spec.AddField(route.FieldAirlineId, field.TypeInt, value)
 	}
 	if value, ok := ruo.mutation.SourceAirportId(); ok {
 		_spec.SetField(route.FieldSourceAirportId, field.TypeInt, value)
@@ -284,6 +336,12 @@ func (ruo *RouteUpdateOne) sqlSave(ctx context.Context) (_node *Route, err error
 	}
 	if value, ok := ruo.mutation.AddedDestinationAirportId(); ok {
 		_spec.AddField(route.FieldDestinationAirportId, field.TypeInt, value)
+	}
+	if value, ok := ruo.mutation.PlaneId(); ok {
+		_spec.SetField(route.FieldPlaneId, field.TypeInt, value)
+	}
+	if value, ok := ruo.mutation.AddedPlaneId(); ok {
+		_spec.AddField(route.FieldPlaneId, field.TypeInt, value)
 	}
 	if value, ok := ruo.mutation.NumberOfStops(); ok {
 		_spec.SetField(route.FieldNumberOfStops, field.TypeInt, value)

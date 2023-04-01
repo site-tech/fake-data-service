@@ -60,9 +60,10 @@ var (
 	// RoutesColumns holds the columns for the "routes" table.
 	RoutesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "airline", Type: field.TypeString},
+		{Name: "airline_id", Type: field.TypeInt},
 		{Name: "source_airport_id", Type: field.TypeInt},
 		{Name: "destination_airport_id", Type: field.TypeInt},
+		{Name: "plane_id", Type: field.TypeInt},
 		{Name: "number_of_stops", Type: field.TypeInt},
 	}
 	// RoutesTable holds the schema information for the "routes" table.

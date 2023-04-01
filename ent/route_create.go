@@ -19,9 +19,9 @@ type RouteCreate struct {
 	hooks    []Hook
 }
 
-// SetAirline sets the "airline" field.
-func (rc *RouteCreate) SetAirline(s string) *RouteCreate {
-	rc.mutation.SetAirline(s)
+// SetAirlineId sets the "airlineId" field.
+func (rc *RouteCreate) SetAirlineId(i int) *RouteCreate {
+	rc.mutation.SetAirlineId(i)
 	return rc
 }
 
@@ -34,6 +34,12 @@ func (rc *RouteCreate) SetSourceAirportId(i int) *RouteCreate {
 // SetDestinationAirportId sets the "destinationAirportId" field.
 func (rc *RouteCreate) SetDestinationAirportId(i int) *RouteCreate {
 	rc.mutation.SetDestinationAirportId(i)
+	return rc
+}
+
+// SetPlaneId sets the "planeId" field.
+func (rc *RouteCreate) SetPlaneId(i int) *RouteCreate {
+	rc.mutation.SetPlaneId(i)
 	return rc
 }
 
@@ -83,14 +89,17 @@ func (rc *RouteCreate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (rc *RouteCreate) check() error {
-	if _, ok := rc.mutation.Airline(); !ok {
-		return &ValidationError{Name: "airline", err: errors.New(`ent: missing required field "Route.airline"`)}
+	if _, ok := rc.mutation.AirlineId(); !ok {
+		return &ValidationError{Name: "airlineId", err: errors.New(`ent: missing required field "Route.airlineId"`)}
 	}
 	if _, ok := rc.mutation.SourceAirportId(); !ok {
 		return &ValidationError{Name: "sourceAirportId", err: errors.New(`ent: missing required field "Route.sourceAirportId"`)}
 	}
 	if _, ok := rc.mutation.DestinationAirportId(); !ok {
 		return &ValidationError{Name: "destinationAirportId", err: errors.New(`ent: missing required field "Route.destinationAirportId"`)}
+	}
+	if _, ok := rc.mutation.PlaneId(); !ok {
+		return &ValidationError{Name: "planeId", err: errors.New(`ent: missing required field "Route.planeId"`)}
 	}
 	if _, ok := rc.mutation.NumberOfStops(); !ok {
 		return &ValidationError{Name: "numberOfStops", err: errors.New(`ent: missing required field "Route.numberOfStops"`)}
@@ -127,9 +136,9 @@ func (rc *RouteCreate) createSpec() (*Route, *sqlgraph.CreateSpec) {
 		_node.ID = id
 		_spec.ID.Value = id
 	}
-	if value, ok := rc.mutation.Airline(); ok {
-		_spec.SetField(route.FieldAirline, field.TypeString, value)
-		_node.Airline = value
+	if value, ok := rc.mutation.AirlineId(); ok {
+		_spec.SetField(route.FieldAirlineId, field.TypeInt, value)
+		_node.AirlineId = value
 	}
 	if value, ok := rc.mutation.SourceAirportId(); ok {
 		_spec.SetField(route.FieldSourceAirportId, field.TypeInt, value)
@@ -138,6 +147,10 @@ func (rc *RouteCreate) createSpec() (*Route, *sqlgraph.CreateSpec) {
 	if value, ok := rc.mutation.DestinationAirportId(); ok {
 		_spec.SetField(route.FieldDestinationAirportId, field.TypeInt, value)
 		_node.DestinationAirportId = value
+	}
+	if value, ok := rc.mutation.PlaneId(); ok {
+		_spec.SetField(route.FieldPlaneId, field.TypeInt, value)
+		_node.PlaneId = value
 	}
 	if value, ok := rc.mutation.NumberOfStops(); ok {
 		_spec.SetField(route.FieldNumberOfStops, field.TypeInt, value)
