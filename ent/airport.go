@@ -30,9 +30,9 @@ type Airport struct {
 	// Longitude holds the value of the "longitude" field.
 	Longitude float64 `json:"longitude,omitempty"`
 	// Altitude holds the value of the "altitude" field.
-	Altitude float64 `json:"altitude,omitempty"`
+	Altitude int `json:"altitude,omitempty"`
 	// Timezone holds the value of the "timezone" field.
-	Timezone float64 `json:"timezone,omitempty"`
+	Timezone string `json:"timezone,omitempty"`
 	// Dst holds the value of the "dst" field.
 	Dst string `json:"dst,omitempty"`
 	// TimezoneName holds the value of the "timezoneName" field.
@@ -48,11 +48,11 @@ func (*Airport) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case airport.FieldLatitude, airport.FieldLongitude, airport.FieldAltitude, airport.FieldTimezone:
+		case airport.FieldLatitude, airport.FieldLongitude:
 			values[i] = new(sql.NullFloat64)
-		case airport.FieldID:
+		case airport.FieldID, airport.FieldAltitude:
 			values[i] = new(sql.NullInt64)
-		case airport.FieldName, airport.FieldCity, airport.FieldCountry, airport.FieldIata, airport.FieldIcao, airport.FieldDst, airport.FieldTimezoneName, airport.FieldType, airport.FieldSource:
+		case airport.FieldName, airport.FieldCity, airport.FieldCountry, airport.FieldIata, airport.FieldIcao, airport.FieldTimezone, airport.FieldDst, airport.FieldTimezoneName, airport.FieldType, airport.FieldSource:
 			values[i] = new(sql.NullString)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Airport", columns[i])
@@ -118,16 +118,16 @@ func (a *Airport) assignValues(columns []string, values []any) error {
 				a.Longitude = value.Float64
 			}
 		case airport.FieldAltitude:
-			if value, ok := values[i].(*sql.NullFloat64); !ok {
+			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field altitude", values[i])
 			} else if value.Valid {
-				a.Altitude = value.Float64
+				a.Altitude = int(value.Int64)
 			}
 		case airport.FieldTimezone:
-			if value, ok := values[i].(*sql.NullFloat64); !ok {
+			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field timezone", values[i])
 			} else if value.Valid {
-				a.Timezone = value.Float64
+				a.Timezone = value.String
 			}
 		case airport.FieldDst:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -206,7 +206,7 @@ func (a *Airport) String() string {
 	builder.WriteString(fmt.Sprintf("%v", a.Altitude))
 	builder.WriteString(", ")
 	builder.WriteString("timezone=")
-	builder.WriteString(fmt.Sprintf("%v", a.Timezone))
+	builder.WriteString(a.Timezone)
 	builder.WriteString(", ")
 	builder.WriteString("dst=")
 	builder.WriteString(a.Dst)

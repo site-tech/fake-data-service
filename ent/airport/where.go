@@ -88,12 +88,12 @@ func Longitude(v float64) predicate.Airport {
 }
 
 // Altitude applies equality check predicate on the "altitude" field. It's identical to AltitudeEQ.
-func Altitude(v float64) predicate.Airport {
+func Altitude(v int) predicate.Airport {
 	return predicate.Airport(sql.FieldEQ(FieldAltitude, v))
 }
 
 // Timezone applies equality check predicate on the "timezone" field. It's identical to TimezoneEQ.
-func Timezone(v float64) predicate.Airport {
+func Timezone(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldEQ(FieldTimezone, v))
 }
 
@@ -172,6 +172,16 @@ func NameHasSuffix(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldHasSuffix(FieldName, v))
 }
 
+// NameIsNil applies the IsNil predicate on the "name" field.
+func NameIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldName))
+}
+
+// NameNotNil applies the NotNil predicate on the "name" field.
+func NameNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldName))
+}
+
 // NameEqualFold applies the EqualFold predicate on the "name" field.
 func NameEqualFold(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldEqualFold(FieldName, v))
@@ -235,6 +245,16 @@ func CityHasPrefix(v string) predicate.Airport {
 // CityHasSuffix applies the HasSuffix predicate on the "city" field.
 func CityHasSuffix(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldHasSuffix(FieldCity, v))
+}
+
+// CityIsNil applies the IsNil predicate on the "city" field.
+func CityIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldCity))
+}
+
+// CityNotNil applies the NotNil predicate on the "city" field.
+func CityNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldCity))
 }
 
 // CityEqualFold applies the EqualFold predicate on the "city" field.
@@ -302,6 +322,16 @@ func CountryHasSuffix(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldHasSuffix(FieldCountry, v))
 }
 
+// CountryIsNil applies the IsNil predicate on the "country" field.
+func CountryIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldCountry))
+}
+
+// CountryNotNil applies the NotNil predicate on the "country" field.
+func CountryNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldCountry))
+}
+
 // CountryEqualFold applies the EqualFold predicate on the "country" field.
 func CountryEqualFold(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldEqualFold(FieldCountry, v))
@@ -365,6 +395,16 @@ func IataHasPrefix(v string) predicate.Airport {
 // IataHasSuffix applies the HasSuffix predicate on the "iata" field.
 func IataHasSuffix(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldHasSuffix(FieldIata, v))
+}
+
+// IataIsNil applies the IsNil predicate on the "iata" field.
+func IataIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldIata))
+}
+
+// IataNotNil applies the NotNil predicate on the "iata" field.
+func IataNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldIata))
 }
 
 // IataEqualFold applies the EqualFold predicate on the "iata" field.
@@ -432,6 +472,16 @@ func IcaoHasSuffix(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldHasSuffix(FieldIcao, v))
 }
 
+// IcaoIsNil applies the IsNil predicate on the "icao" field.
+func IcaoIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldIcao))
+}
+
+// IcaoNotNil applies the NotNil predicate on the "icao" field.
+func IcaoNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldIcao))
+}
+
 // IcaoEqualFold applies the EqualFold predicate on the "icao" field.
 func IcaoEqualFold(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldEqualFold(FieldIcao, v))
@@ -482,6 +532,16 @@ func LatitudeLTE(v float64) predicate.Airport {
 	return predicate.Airport(sql.FieldLTE(FieldLatitude, v))
 }
 
+// LatitudeIsNil applies the IsNil predicate on the "latitude" field.
+func LatitudeIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldLatitude))
+}
+
+// LatitudeNotNil applies the NotNil predicate on the "latitude" field.
+func LatitudeNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldLatitude))
+}
+
 // LongitudeEQ applies the EQ predicate on the "longitude" field.
 func LongitudeEQ(v float64) predicate.Airport {
 	return predicate.Airport(sql.FieldEQ(FieldLongitude, v))
@@ -522,84 +582,139 @@ func LongitudeLTE(v float64) predicate.Airport {
 	return predicate.Airport(sql.FieldLTE(FieldLongitude, v))
 }
 
+// LongitudeIsNil applies the IsNil predicate on the "longitude" field.
+func LongitudeIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldLongitude))
+}
+
+// LongitudeNotNil applies the NotNil predicate on the "longitude" field.
+func LongitudeNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldLongitude))
+}
+
 // AltitudeEQ applies the EQ predicate on the "altitude" field.
-func AltitudeEQ(v float64) predicate.Airport {
+func AltitudeEQ(v int) predicate.Airport {
 	return predicate.Airport(sql.FieldEQ(FieldAltitude, v))
 }
 
 // AltitudeNEQ applies the NEQ predicate on the "altitude" field.
-func AltitudeNEQ(v float64) predicate.Airport {
+func AltitudeNEQ(v int) predicate.Airport {
 	return predicate.Airport(sql.FieldNEQ(FieldAltitude, v))
 }
 
 // AltitudeIn applies the In predicate on the "altitude" field.
-func AltitudeIn(vs ...float64) predicate.Airport {
+func AltitudeIn(vs ...int) predicate.Airport {
 	return predicate.Airport(sql.FieldIn(FieldAltitude, vs...))
 }
 
 // AltitudeNotIn applies the NotIn predicate on the "altitude" field.
-func AltitudeNotIn(vs ...float64) predicate.Airport {
+func AltitudeNotIn(vs ...int) predicate.Airport {
 	return predicate.Airport(sql.FieldNotIn(FieldAltitude, vs...))
 }
 
 // AltitudeGT applies the GT predicate on the "altitude" field.
-func AltitudeGT(v float64) predicate.Airport {
+func AltitudeGT(v int) predicate.Airport {
 	return predicate.Airport(sql.FieldGT(FieldAltitude, v))
 }
 
 // AltitudeGTE applies the GTE predicate on the "altitude" field.
-func AltitudeGTE(v float64) predicate.Airport {
+func AltitudeGTE(v int) predicate.Airport {
 	return predicate.Airport(sql.FieldGTE(FieldAltitude, v))
 }
 
 // AltitudeLT applies the LT predicate on the "altitude" field.
-func AltitudeLT(v float64) predicate.Airport {
+func AltitudeLT(v int) predicate.Airport {
 	return predicate.Airport(sql.FieldLT(FieldAltitude, v))
 }
 
 // AltitudeLTE applies the LTE predicate on the "altitude" field.
-func AltitudeLTE(v float64) predicate.Airport {
+func AltitudeLTE(v int) predicate.Airport {
 	return predicate.Airport(sql.FieldLTE(FieldAltitude, v))
 }
 
+// AltitudeIsNil applies the IsNil predicate on the "altitude" field.
+func AltitudeIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldAltitude))
+}
+
+// AltitudeNotNil applies the NotNil predicate on the "altitude" field.
+func AltitudeNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldAltitude))
+}
+
 // TimezoneEQ applies the EQ predicate on the "timezone" field.
-func TimezoneEQ(v float64) predicate.Airport {
+func TimezoneEQ(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldEQ(FieldTimezone, v))
 }
 
 // TimezoneNEQ applies the NEQ predicate on the "timezone" field.
-func TimezoneNEQ(v float64) predicate.Airport {
+func TimezoneNEQ(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldNEQ(FieldTimezone, v))
 }
 
 // TimezoneIn applies the In predicate on the "timezone" field.
-func TimezoneIn(vs ...float64) predicate.Airport {
+func TimezoneIn(vs ...string) predicate.Airport {
 	return predicate.Airport(sql.FieldIn(FieldTimezone, vs...))
 }
 
 // TimezoneNotIn applies the NotIn predicate on the "timezone" field.
-func TimezoneNotIn(vs ...float64) predicate.Airport {
+func TimezoneNotIn(vs ...string) predicate.Airport {
 	return predicate.Airport(sql.FieldNotIn(FieldTimezone, vs...))
 }
 
 // TimezoneGT applies the GT predicate on the "timezone" field.
-func TimezoneGT(v float64) predicate.Airport {
+func TimezoneGT(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldGT(FieldTimezone, v))
 }
 
 // TimezoneGTE applies the GTE predicate on the "timezone" field.
-func TimezoneGTE(v float64) predicate.Airport {
+func TimezoneGTE(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldGTE(FieldTimezone, v))
 }
 
 // TimezoneLT applies the LT predicate on the "timezone" field.
-func TimezoneLT(v float64) predicate.Airport {
+func TimezoneLT(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldLT(FieldTimezone, v))
 }
 
 // TimezoneLTE applies the LTE predicate on the "timezone" field.
-func TimezoneLTE(v float64) predicate.Airport {
+func TimezoneLTE(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldLTE(FieldTimezone, v))
+}
+
+// TimezoneContains applies the Contains predicate on the "timezone" field.
+func TimezoneContains(v string) predicate.Airport {
+	return predicate.Airport(sql.FieldContains(FieldTimezone, v))
+}
+
+// TimezoneHasPrefix applies the HasPrefix predicate on the "timezone" field.
+func TimezoneHasPrefix(v string) predicate.Airport {
+	return predicate.Airport(sql.FieldHasPrefix(FieldTimezone, v))
+}
+
+// TimezoneHasSuffix applies the HasSuffix predicate on the "timezone" field.
+func TimezoneHasSuffix(v string) predicate.Airport {
+	return predicate.Airport(sql.FieldHasSuffix(FieldTimezone, v))
+}
+
+// TimezoneIsNil applies the IsNil predicate on the "timezone" field.
+func TimezoneIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldTimezone))
+}
+
+// TimezoneNotNil applies the NotNil predicate on the "timezone" field.
+func TimezoneNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldTimezone))
+}
+
+// TimezoneEqualFold applies the EqualFold predicate on the "timezone" field.
+func TimezoneEqualFold(v string) predicate.Airport {
+	return predicate.Airport(sql.FieldEqualFold(FieldTimezone, v))
+}
+
+// TimezoneContainsFold applies the ContainsFold predicate on the "timezone" field.
+func TimezoneContainsFold(v string) predicate.Airport {
+	return predicate.Airport(sql.FieldContainsFold(FieldTimezone, v))
 }
 
 // DstEQ applies the EQ predicate on the "dst" field.
@@ -655,6 +770,16 @@ func DstHasPrefix(v string) predicate.Airport {
 // DstHasSuffix applies the HasSuffix predicate on the "dst" field.
 func DstHasSuffix(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldHasSuffix(FieldDst, v))
+}
+
+// DstIsNil applies the IsNil predicate on the "dst" field.
+func DstIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldDst))
+}
+
+// DstNotNil applies the NotNil predicate on the "dst" field.
+func DstNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldDst))
 }
 
 // DstEqualFold applies the EqualFold predicate on the "dst" field.
@@ -722,6 +847,16 @@ func TimezoneNameHasSuffix(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldHasSuffix(FieldTimezoneName, v))
 }
 
+// TimezoneNameIsNil applies the IsNil predicate on the "timezoneName" field.
+func TimezoneNameIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldTimezoneName))
+}
+
+// TimezoneNameNotNil applies the NotNil predicate on the "timezoneName" field.
+func TimezoneNameNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldTimezoneName))
+}
+
 // TimezoneNameEqualFold applies the EqualFold predicate on the "timezoneName" field.
 func TimezoneNameEqualFold(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldEqualFold(FieldTimezoneName, v))
@@ -787,6 +922,16 @@ func TypeHasSuffix(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldHasSuffix(FieldType, v))
 }
 
+// TypeIsNil applies the IsNil predicate on the "type" field.
+func TypeIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldType))
+}
+
+// TypeNotNil applies the NotNil predicate on the "type" field.
+func TypeNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldType))
+}
+
 // TypeEqualFold applies the EqualFold predicate on the "type" field.
 func TypeEqualFold(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldEqualFold(FieldType, v))
@@ -850,6 +995,16 @@ func SourceHasPrefix(v string) predicate.Airport {
 // SourceHasSuffix applies the HasSuffix predicate on the "source" field.
 func SourceHasSuffix(v string) predicate.Airport {
 	return predicate.Airport(sql.FieldHasSuffix(FieldSource, v))
+}
+
+// SourceIsNil applies the IsNil predicate on the "source" field.
+func SourceIsNil() predicate.Airport {
+	return predicate.Airport(sql.FieldIsNull(FieldSource))
+}
+
+// SourceNotNil applies the NotNil predicate on the "source" field.
+func SourceNotNil() predicate.Airport {
+	return predicate.Airport(sql.FieldNotNull(FieldSource))
 }
 
 // SourceEqualFold applies the EqualFold predicate on the "source" field.

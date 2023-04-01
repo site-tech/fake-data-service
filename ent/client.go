@@ -13,7 +13,10 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
+	"github.com/site-tech/fake-data-service/ent/airline"
 	"github.com/site-tech/fake-data-service/ent/airport"
+	"github.com/site-tech/fake-data-service/ent/plane"
+	"github.com/site-tech/fake-data-service/ent/route"
 )
 
 // Client is the client that holds all ent builders.
@@ -21,8 +24,14 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
+	// Airline is the client for interacting with the Airline builders.
+	Airline *AirlineClient
 	// Airport is the client for interacting with the Airport builders.
 	Airport *AirportClient
+	// Plane is the client for interacting with the Plane builders.
+	Plane *PlaneClient
+	// Route is the client for interacting with the Route builders.
+	Route *RouteClient
 }
 
 // NewClient creates a new client configured with the given options.
@@ -36,7 +45,10 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
+	c.Airline = NewAirlineClient(c.config)
 	c.Airport = NewAirportClient(c.config)
+	c.Plane = NewPlaneClient(c.config)
+	c.Route = NewRouteClient(c.config)
 }
 
 type (
@@ -119,7 +131,10 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	return &Tx{
 		ctx:     ctx,
 		config:  cfg,
+		Airline: NewAirlineClient(cfg),
 		Airport: NewAirportClient(cfg),
+		Plane:   NewPlaneClient(cfg),
+		Route:   NewRouteClient(cfg),
 	}, nil
 }
 
@@ -139,14 +154,17 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	return &Tx{
 		ctx:     ctx,
 		config:  cfg,
+		Airline: NewAirlineClient(cfg),
 		Airport: NewAirportClient(cfg),
+		Plane:   NewPlaneClient(cfg),
+		Route:   NewRouteClient(cfg),
 	}, nil
 }
 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		Airport.
+//		Airline.
 //		Query().
 //		Count(ctx)
 func (c *Client) Debug() *Client {
@@ -168,22 +186,152 @@ func (c *Client) Close() error {
 // Use adds the mutation hooks to all the entity clients.
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
+	c.Airline.Use(hooks...)
 	c.Airport.Use(hooks...)
+	c.Plane.Use(hooks...)
+	c.Route.Use(hooks...)
 }
 
 // Intercept adds the query interceptors to all the entity clients.
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
+	c.Airline.Intercept(interceptors...)
 	c.Airport.Intercept(interceptors...)
+	c.Plane.Intercept(interceptors...)
+	c.Route.Intercept(interceptors...)
 }
 
 // Mutate implements the ent.Mutator interface.
 func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 	switch m := m.(type) {
+	case *AirlineMutation:
+		return c.Airline.mutate(ctx, m)
 	case *AirportMutation:
 		return c.Airport.mutate(ctx, m)
+	case *PlaneMutation:
+		return c.Plane.mutate(ctx, m)
+	case *RouteMutation:
+		return c.Route.mutate(ctx, m)
 	default:
 		return nil, fmt.Errorf("ent: unknown mutation type %T", m)
+	}
+}
+
+// AirlineClient is a client for the Airline schema.
+type AirlineClient struct {
+	config
+}
+
+// NewAirlineClient returns a client for the Airline from the given config.
+func NewAirlineClient(c config) *AirlineClient {
+	return &AirlineClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `airline.Hooks(f(g(h())))`.
+func (c *AirlineClient) Use(hooks ...Hook) {
+	c.hooks.Airline = append(c.hooks.Airline, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `airline.Intercept(f(g(h())))`.
+func (c *AirlineClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Airline = append(c.inters.Airline, interceptors...)
+}
+
+// Create returns a builder for creating a Airline entity.
+func (c *AirlineClient) Create() *AirlineCreate {
+	mutation := newAirlineMutation(c.config, OpCreate)
+	return &AirlineCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Airline entities.
+func (c *AirlineClient) CreateBulk(builders ...*AirlineCreate) *AirlineCreateBulk {
+	return &AirlineCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Airline.
+func (c *AirlineClient) Update() *AirlineUpdate {
+	mutation := newAirlineMutation(c.config, OpUpdate)
+	return &AirlineUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *AirlineClient) UpdateOne(a *Airline) *AirlineUpdateOne {
+	mutation := newAirlineMutation(c.config, OpUpdateOne, withAirline(a))
+	return &AirlineUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *AirlineClient) UpdateOneID(id int) *AirlineUpdateOne {
+	mutation := newAirlineMutation(c.config, OpUpdateOne, withAirlineID(id))
+	return &AirlineUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Airline.
+func (c *AirlineClient) Delete() *AirlineDelete {
+	mutation := newAirlineMutation(c.config, OpDelete)
+	return &AirlineDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *AirlineClient) DeleteOne(a *Airline) *AirlineDeleteOne {
+	return c.DeleteOneID(a.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *AirlineClient) DeleteOneID(id int) *AirlineDeleteOne {
+	builder := c.Delete().Where(airline.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &AirlineDeleteOne{builder}
+}
+
+// Query returns a query builder for Airline.
+func (c *AirlineClient) Query() *AirlineQuery {
+	return &AirlineQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeAirline},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Airline entity by its id.
+func (c *AirlineClient) Get(ctx context.Context, id int) (*Airline, error) {
+	return c.Query().Where(airline.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *AirlineClient) GetX(ctx context.Context, id int) *Airline {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *AirlineClient) Hooks() []Hook {
+	return c.hooks.Airline
+}
+
+// Interceptors returns the client interceptors.
+func (c *AirlineClient) Interceptors() []Interceptor {
+	return c.inters.Airline
+}
+
+func (c *AirlineClient) mutate(ctx context.Context, m *AirlineMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&AirlineCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&AirlineUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&AirlineUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&AirlineDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Airline mutation op: %q", m.Op())
 	}
 }
 
@@ -305,12 +453,248 @@ func (c *AirportClient) mutate(ctx context.Context, m *AirportMutation) (Value, 
 	}
 }
 
+// PlaneClient is a client for the Plane schema.
+type PlaneClient struct {
+	config
+}
+
+// NewPlaneClient returns a client for the Plane from the given config.
+func NewPlaneClient(c config) *PlaneClient {
+	return &PlaneClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `plane.Hooks(f(g(h())))`.
+func (c *PlaneClient) Use(hooks ...Hook) {
+	c.hooks.Plane = append(c.hooks.Plane, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `plane.Intercept(f(g(h())))`.
+func (c *PlaneClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Plane = append(c.inters.Plane, interceptors...)
+}
+
+// Create returns a builder for creating a Plane entity.
+func (c *PlaneClient) Create() *PlaneCreate {
+	mutation := newPlaneMutation(c.config, OpCreate)
+	return &PlaneCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Plane entities.
+func (c *PlaneClient) CreateBulk(builders ...*PlaneCreate) *PlaneCreateBulk {
+	return &PlaneCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Plane.
+func (c *PlaneClient) Update() *PlaneUpdate {
+	mutation := newPlaneMutation(c.config, OpUpdate)
+	return &PlaneUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PlaneClient) UpdateOne(pl *Plane) *PlaneUpdateOne {
+	mutation := newPlaneMutation(c.config, OpUpdateOne, withPlane(pl))
+	return &PlaneUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PlaneClient) UpdateOneID(id int) *PlaneUpdateOne {
+	mutation := newPlaneMutation(c.config, OpUpdateOne, withPlaneID(id))
+	return &PlaneUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Plane.
+func (c *PlaneClient) Delete() *PlaneDelete {
+	mutation := newPlaneMutation(c.config, OpDelete)
+	return &PlaneDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *PlaneClient) DeleteOne(pl *Plane) *PlaneDeleteOne {
+	return c.DeleteOneID(pl.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *PlaneClient) DeleteOneID(id int) *PlaneDeleteOne {
+	builder := c.Delete().Where(plane.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PlaneDeleteOne{builder}
+}
+
+// Query returns a query builder for Plane.
+func (c *PlaneClient) Query() *PlaneQuery {
+	return &PlaneQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypePlane},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Plane entity by its id.
+func (c *PlaneClient) Get(ctx context.Context, id int) (*Plane, error) {
+	return c.Query().Where(plane.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PlaneClient) GetX(ctx context.Context, id int) *Plane {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *PlaneClient) Hooks() []Hook {
+	return c.hooks.Plane
+}
+
+// Interceptors returns the client interceptors.
+func (c *PlaneClient) Interceptors() []Interceptor {
+	return c.inters.Plane
+}
+
+func (c *PlaneClient) mutate(ctx context.Context, m *PlaneMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&PlaneCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&PlaneUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&PlaneUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&PlaneDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Plane mutation op: %q", m.Op())
+	}
+}
+
+// RouteClient is a client for the Route schema.
+type RouteClient struct {
+	config
+}
+
+// NewRouteClient returns a client for the Route from the given config.
+func NewRouteClient(c config) *RouteClient {
+	return &RouteClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `route.Hooks(f(g(h())))`.
+func (c *RouteClient) Use(hooks ...Hook) {
+	c.hooks.Route = append(c.hooks.Route, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `route.Intercept(f(g(h())))`.
+func (c *RouteClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Route = append(c.inters.Route, interceptors...)
+}
+
+// Create returns a builder for creating a Route entity.
+func (c *RouteClient) Create() *RouteCreate {
+	mutation := newRouteMutation(c.config, OpCreate)
+	return &RouteCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Route entities.
+func (c *RouteClient) CreateBulk(builders ...*RouteCreate) *RouteCreateBulk {
+	return &RouteCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Route.
+func (c *RouteClient) Update() *RouteUpdate {
+	mutation := newRouteMutation(c.config, OpUpdate)
+	return &RouteUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *RouteClient) UpdateOne(r *Route) *RouteUpdateOne {
+	mutation := newRouteMutation(c.config, OpUpdateOne, withRoute(r))
+	return &RouteUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *RouteClient) UpdateOneID(id int) *RouteUpdateOne {
+	mutation := newRouteMutation(c.config, OpUpdateOne, withRouteID(id))
+	return &RouteUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Route.
+func (c *RouteClient) Delete() *RouteDelete {
+	mutation := newRouteMutation(c.config, OpDelete)
+	return &RouteDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *RouteClient) DeleteOne(r *Route) *RouteDeleteOne {
+	return c.DeleteOneID(r.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *RouteClient) DeleteOneID(id int) *RouteDeleteOne {
+	builder := c.Delete().Where(route.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &RouteDeleteOne{builder}
+}
+
+// Query returns a query builder for Route.
+func (c *RouteClient) Query() *RouteQuery {
+	return &RouteQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeRoute},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Route entity by its id.
+func (c *RouteClient) Get(ctx context.Context, id int) (*Route, error) {
+	return c.Query().Where(route.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *RouteClient) GetX(ctx context.Context, id int) *Route {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *RouteClient) Hooks() []Hook {
+	return c.hooks.Route
+}
+
+// Interceptors returns the client interceptors.
+func (c *RouteClient) Interceptors() []Interceptor {
+	return c.inters.Route
+}
+
+func (c *RouteClient) mutate(ctx context.Context, m *RouteMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&RouteCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&RouteUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&RouteUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&RouteDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Route mutation op: %q", m.Op())
+	}
+}
+
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		Airport []ent.Hook
+		Airline, Airport, Plane, Route []ent.Hook
 	}
 	inters struct {
-		Airport []ent.Interceptor
+		Airline, Airport, Plane, Route []ent.Interceptor
 	}
 )

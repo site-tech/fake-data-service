@@ -22,7 +22,7 @@ func (Airport) Fields() []ent.Field {
 		field.Float("latitude").Optional(),
 		field.Float("longitude").Optional(),
 		field.Int("altitude").Optional(),
-		field.Int("timezone").Optional(),
+		field.String("timezone").Optional(),
 		field.String("dst").Optional(),
 		field.String("timezoneName").Optional(),
 		field.String("type").Optional(),

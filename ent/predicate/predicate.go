@@ -6,5 +6,14 @@ import (
 	"entgo.io/ent/dialect/sql"
 )
 
+// Airline is the predicate function for airline builders.
+type Airline func(*sql.Selector)
+
 // Airport is the predicate function for airport builders.
 type Airport func(*sql.Selector)
+
+// Plane is the predicate function for plane builders.
+type Plane func(*sql.Selector)
+
+// Route is the predicate function for route builders.
+type Route func(*sql.Selector)

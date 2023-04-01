@@ -8,22 +8,36 @@ import (
 )
 
 var (
+	// AirlinesColumns holds the columns for the "airlines" table.
+	AirlinesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "alias", Type: field.TypeString},
+		{Name: "country", Type: field.TypeString},
+		{Name: "active", Type: field.TypeBool},
+	}
+	// AirlinesTable holds the schema information for the "airlines" table.
+	AirlinesTable = &schema.Table{
+		Name:       "airlines",
+		Columns:    AirlinesColumns,
+		PrimaryKey: []*schema.Column{AirlinesColumns[0]},
+	}
 	// AirportsColumns holds the columns for the "airports" table.
 	AirportsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString},
-		{Name: "city", Type: field.TypeString},
-		{Name: "country", Type: field.TypeString},
-		{Name: "iata", Type: field.TypeString},
-		{Name: "icao", Type: field.TypeString},
-		{Name: "latitude", Type: field.TypeFloat64},
-		{Name: "longitude", Type: field.TypeFloat64},
-		{Name: "altitude", Type: field.TypeFloat64},
-		{Name: "timezone", Type: field.TypeFloat64},
-		{Name: "dst", Type: field.TypeString},
-		{Name: "timezone_name", Type: field.TypeString},
-		{Name: "type", Type: field.TypeString},
-		{Name: "source", Type: field.TypeString},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "city", Type: field.TypeString, Nullable: true},
+		{Name: "country", Type: field.TypeString, Nullable: true},
+		{Name: "iata", Type: field.TypeString, Nullable: true},
+		{Name: "icao", Type: field.TypeString, Nullable: true},
+		{Name: "latitude", Type: field.TypeFloat64, Nullable: true},
+		{Name: "longitude", Type: field.TypeFloat64, Nullable: true},
+		{Name: "altitude", Type: field.TypeInt, Nullable: true},
+		{Name: "timezone", Type: field.TypeString, Nullable: true},
+		{Name: "dst", Type: field.TypeString, Nullable: true},
+		{Name: "timezone_name", Type: field.TypeString, Nullable: true},
+		{Name: "type", Type: field.TypeString, Nullable: true},
+		{Name: "source", Type: field.TypeString, Nullable: true},
 	}
 	// AirportsTable holds the schema information for the "airports" table.
 	AirportsTable = &schema.Table{
@@ -31,9 +45,38 @@ var (
 		Columns:    AirportsColumns,
 		PrimaryKey: []*schema.Column{AirportsColumns[0]},
 	}
+	// PlanesColumns holds the columns for the "planes" table.
+	PlanesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "tail_number", Type: field.TypeString},
+	}
+	// PlanesTable holds the schema information for the "planes" table.
+	PlanesTable = &schema.Table{
+		Name:       "planes",
+		Columns:    PlanesColumns,
+		PrimaryKey: []*schema.Column{PlanesColumns[0]},
+	}
+	// RoutesColumns holds the columns for the "routes" table.
+	RoutesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "airline", Type: field.TypeString},
+		{Name: "source_airport_id", Type: field.TypeInt},
+		{Name: "destination_airport_id", Type: field.TypeInt},
+		{Name: "number_of_stops", Type: field.TypeInt},
+	}
+	// RoutesTable holds the schema information for the "routes" table.
+	RoutesTable = &schema.Table{
+		Name:       "routes",
+		Columns:    RoutesColumns,
+		PrimaryKey: []*schema.Column{RoutesColumns[0]},
+	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
+		AirlinesTable,
 		AirportsTable,
+		PlanesTable,
+		RoutesTable,
 	}
 )
 

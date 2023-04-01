@@ -33,9 +33,37 @@ func (au *AirportUpdate) SetName(s string) *AirportUpdate {
 	return au
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableName(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetName(*s)
+	}
+	return au
+}
+
+// ClearName clears the value of the "name" field.
+func (au *AirportUpdate) ClearName() *AirportUpdate {
+	au.mutation.ClearName()
+	return au
+}
+
 // SetCity sets the "city" field.
 func (au *AirportUpdate) SetCity(s string) *AirportUpdate {
 	au.mutation.SetCity(s)
+	return au
+}
+
+// SetNillableCity sets the "city" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableCity(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetCity(*s)
+	}
+	return au
+}
+
+// ClearCity clears the value of the "city" field.
+func (au *AirportUpdate) ClearCity() *AirportUpdate {
+	au.mutation.ClearCity()
 	return au
 }
 
@@ -45,15 +73,57 @@ func (au *AirportUpdate) SetCountry(s string) *AirportUpdate {
 	return au
 }
 
+// SetNillableCountry sets the "country" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableCountry(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetCountry(*s)
+	}
+	return au
+}
+
+// ClearCountry clears the value of the "country" field.
+func (au *AirportUpdate) ClearCountry() *AirportUpdate {
+	au.mutation.ClearCountry()
+	return au
+}
+
 // SetIata sets the "iata" field.
 func (au *AirportUpdate) SetIata(s string) *AirportUpdate {
 	au.mutation.SetIata(s)
 	return au
 }
 
+// SetNillableIata sets the "iata" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableIata(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetIata(*s)
+	}
+	return au
+}
+
+// ClearIata clears the value of the "iata" field.
+func (au *AirportUpdate) ClearIata() *AirportUpdate {
+	au.mutation.ClearIata()
+	return au
+}
+
 // SetIcao sets the "icao" field.
 func (au *AirportUpdate) SetIcao(s string) *AirportUpdate {
 	au.mutation.SetIcao(s)
+	return au
+}
+
+// SetNillableIcao sets the "icao" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableIcao(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetIcao(*s)
+	}
+	return au
+}
+
+// ClearIcao clears the value of the "icao" field.
+func (au *AirportUpdate) ClearIcao() *AirportUpdate {
+	au.mutation.ClearIcao()
 	return au
 }
 
@@ -64,9 +134,23 @@ func (au *AirportUpdate) SetLatitude(f float64) *AirportUpdate {
 	return au
 }
 
+// SetNillableLatitude sets the "latitude" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableLatitude(f *float64) *AirportUpdate {
+	if f != nil {
+		au.SetLatitude(*f)
+	}
+	return au
+}
+
 // AddLatitude adds f to the "latitude" field.
 func (au *AirportUpdate) AddLatitude(f float64) *AirportUpdate {
 	au.mutation.AddLatitude(f)
+	return au
+}
+
+// ClearLatitude clears the value of the "latitude" field.
+func (au *AirportUpdate) ClearLatitude() *AirportUpdate {
+	au.mutation.ClearLatitude()
 	return au
 }
 
@@ -77,35 +161,70 @@ func (au *AirportUpdate) SetLongitude(f float64) *AirportUpdate {
 	return au
 }
 
+// SetNillableLongitude sets the "longitude" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableLongitude(f *float64) *AirportUpdate {
+	if f != nil {
+		au.SetLongitude(*f)
+	}
+	return au
+}
+
 // AddLongitude adds f to the "longitude" field.
 func (au *AirportUpdate) AddLongitude(f float64) *AirportUpdate {
 	au.mutation.AddLongitude(f)
 	return au
 }
 
-// SetAltitude sets the "altitude" field.
-func (au *AirportUpdate) SetAltitude(f float64) *AirportUpdate {
-	au.mutation.ResetAltitude()
-	au.mutation.SetAltitude(f)
+// ClearLongitude clears the value of the "longitude" field.
+func (au *AirportUpdate) ClearLongitude() *AirportUpdate {
+	au.mutation.ClearLongitude()
 	return au
 }
 
-// AddAltitude adds f to the "altitude" field.
-func (au *AirportUpdate) AddAltitude(f float64) *AirportUpdate {
-	au.mutation.AddAltitude(f)
+// SetAltitude sets the "altitude" field.
+func (au *AirportUpdate) SetAltitude(i int) *AirportUpdate {
+	au.mutation.ResetAltitude()
+	au.mutation.SetAltitude(i)
+	return au
+}
+
+// SetNillableAltitude sets the "altitude" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableAltitude(i *int) *AirportUpdate {
+	if i != nil {
+		au.SetAltitude(*i)
+	}
+	return au
+}
+
+// AddAltitude adds i to the "altitude" field.
+func (au *AirportUpdate) AddAltitude(i int) *AirportUpdate {
+	au.mutation.AddAltitude(i)
+	return au
+}
+
+// ClearAltitude clears the value of the "altitude" field.
+func (au *AirportUpdate) ClearAltitude() *AirportUpdate {
+	au.mutation.ClearAltitude()
 	return au
 }
 
 // SetTimezone sets the "timezone" field.
-func (au *AirportUpdate) SetTimezone(f float64) *AirportUpdate {
-	au.mutation.ResetTimezone()
-	au.mutation.SetTimezone(f)
+func (au *AirportUpdate) SetTimezone(s string) *AirportUpdate {
+	au.mutation.SetTimezone(s)
 	return au
 }
 
-// AddTimezone adds f to the "timezone" field.
-func (au *AirportUpdate) AddTimezone(f float64) *AirportUpdate {
-	au.mutation.AddTimezone(f)
+// SetNillableTimezone sets the "timezone" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableTimezone(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetTimezone(*s)
+	}
+	return au
+}
+
+// ClearTimezone clears the value of the "timezone" field.
+func (au *AirportUpdate) ClearTimezone() *AirportUpdate {
+	au.mutation.ClearTimezone()
 	return au
 }
 
@@ -115,9 +234,37 @@ func (au *AirportUpdate) SetDst(s string) *AirportUpdate {
 	return au
 }
 
+// SetNillableDst sets the "dst" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableDst(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetDst(*s)
+	}
+	return au
+}
+
+// ClearDst clears the value of the "dst" field.
+func (au *AirportUpdate) ClearDst() *AirportUpdate {
+	au.mutation.ClearDst()
+	return au
+}
+
 // SetTimezoneName sets the "timezoneName" field.
 func (au *AirportUpdate) SetTimezoneName(s string) *AirportUpdate {
 	au.mutation.SetTimezoneName(s)
+	return au
+}
+
+// SetNillableTimezoneName sets the "timezoneName" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableTimezoneName(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetTimezoneName(*s)
+	}
+	return au
+}
+
+// ClearTimezoneName clears the value of the "timezoneName" field.
+func (au *AirportUpdate) ClearTimezoneName() *AirportUpdate {
+	au.mutation.ClearTimezoneName()
 	return au
 }
 
@@ -127,9 +274,37 @@ func (au *AirportUpdate) SetType(s string) *AirportUpdate {
 	return au
 }
 
+// SetNillableType sets the "type" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableType(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetType(*s)
+	}
+	return au
+}
+
+// ClearType clears the value of the "type" field.
+func (au *AirportUpdate) ClearType() *AirportUpdate {
+	au.mutation.ClearType()
+	return au
+}
+
 // SetSource sets the "source" field.
 func (au *AirportUpdate) SetSource(s string) *AirportUpdate {
 	au.mutation.SetSource(s)
+	return au
+}
+
+// SetNillableSource sets the "source" field if the given value is not nil.
+func (au *AirportUpdate) SetNillableSource(s *string) *AirportUpdate {
+	if s != nil {
+		au.SetSource(*s)
+	}
+	return au
+}
+
+// ClearSource clears the value of the "source" field.
+func (au *AirportUpdate) ClearSource() *AirportUpdate {
+	au.mutation.ClearSource()
 	return au
 }
 
@@ -177,17 +352,32 @@ func (au *AirportUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := au.mutation.Name(); ok {
 		_spec.SetField(airport.FieldName, field.TypeString, value)
 	}
+	if au.mutation.NameCleared() {
+		_spec.ClearField(airport.FieldName, field.TypeString)
+	}
 	if value, ok := au.mutation.City(); ok {
 		_spec.SetField(airport.FieldCity, field.TypeString, value)
+	}
+	if au.mutation.CityCleared() {
+		_spec.ClearField(airport.FieldCity, field.TypeString)
 	}
 	if value, ok := au.mutation.Country(); ok {
 		_spec.SetField(airport.FieldCountry, field.TypeString, value)
 	}
+	if au.mutation.CountryCleared() {
+		_spec.ClearField(airport.FieldCountry, field.TypeString)
+	}
 	if value, ok := au.mutation.Iata(); ok {
 		_spec.SetField(airport.FieldIata, field.TypeString, value)
 	}
+	if au.mutation.IataCleared() {
+		_spec.ClearField(airport.FieldIata, field.TypeString)
+	}
 	if value, ok := au.mutation.Icao(); ok {
 		_spec.SetField(airport.FieldIcao, field.TypeString, value)
+	}
+	if au.mutation.IcaoCleared() {
+		_spec.ClearField(airport.FieldIcao, field.TypeString)
 	}
 	if value, ok := au.mutation.Latitude(); ok {
 		_spec.SetField(airport.FieldLatitude, field.TypeFloat64, value)
@@ -195,35 +385,56 @@ func (au *AirportUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := au.mutation.AddedLatitude(); ok {
 		_spec.AddField(airport.FieldLatitude, field.TypeFloat64, value)
 	}
+	if au.mutation.LatitudeCleared() {
+		_spec.ClearField(airport.FieldLatitude, field.TypeFloat64)
+	}
 	if value, ok := au.mutation.Longitude(); ok {
 		_spec.SetField(airport.FieldLongitude, field.TypeFloat64, value)
 	}
 	if value, ok := au.mutation.AddedLongitude(); ok {
 		_spec.AddField(airport.FieldLongitude, field.TypeFloat64, value)
 	}
+	if au.mutation.LongitudeCleared() {
+		_spec.ClearField(airport.FieldLongitude, field.TypeFloat64)
+	}
 	if value, ok := au.mutation.Altitude(); ok {
-		_spec.SetField(airport.FieldAltitude, field.TypeFloat64, value)
+		_spec.SetField(airport.FieldAltitude, field.TypeInt, value)
 	}
 	if value, ok := au.mutation.AddedAltitude(); ok {
-		_spec.AddField(airport.FieldAltitude, field.TypeFloat64, value)
+		_spec.AddField(airport.FieldAltitude, field.TypeInt, value)
+	}
+	if au.mutation.AltitudeCleared() {
+		_spec.ClearField(airport.FieldAltitude, field.TypeInt)
 	}
 	if value, ok := au.mutation.Timezone(); ok {
-		_spec.SetField(airport.FieldTimezone, field.TypeFloat64, value)
+		_spec.SetField(airport.FieldTimezone, field.TypeString, value)
 	}
-	if value, ok := au.mutation.AddedTimezone(); ok {
-		_spec.AddField(airport.FieldTimezone, field.TypeFloat64, value)
+	if au.mutation.TimezoneCleared() {
+		_spec.ClearField(airport.FieldTimezone, field.TypeString)
 	}
 	if value, ok := au.mutation.Dst(); ok {
 		_spec.SetField(airport.FieldDst, field.TypeString, value)
 	}
+	if au.mutation.DstCleared() {
+		_spec.ClearField(airport.FieldDst, field.TypeString)
+	}
 	if value, ok := au.mutation.TimezoneName(); ok {
 		_spec.SetField(airport.FieldTimezoneName, field.TypeString, value)
+	}
+	if au.mutation.TimezoneNameCleared() {
+		_spec.ClearField(airport.FieldTimezoneName, field.TypeString)
 	}
 	if value, ok := au.mutation.GetType(); ok {
 		_spec.SetField(airport.FieldType, field.TypeString, value)
 	}
+	if au.mutation.TypeCleared() {
+		_spec.ClearField(airport.FieldType, field.TypeString)
+	}
 	if value, ok := au.mutation.Source(); ok {
 		_spec.SetField(airport.FieldSource, field.TypeString, value)
+	}
+	if au.mutation.SourceCleared() {
+		_spec.ClearField(airport.FieldSource, field.TypeString)
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -251,9 +462,37 @@ func (auo *AirportUpdateOne) SetName(s string) *AirportUpdateOne {
 	return auo
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableName(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetName(*s)
+	}
+	return auo
+}
+
+// ClearName clears the value of the "name" field.
+func (auo *AirportUpdateOne) ClearName() *AirportUpdateOne {
+	auo.mutation.ClearName()
+	return auo
+}
+
 // SetCity sets the "city" field.
 func (auo *AirportUpdateOne) SetCity(s string) *AirportUpdateOne {
 	auo.mutation.SetCity(s)
+	return auo
+}
+
+// SetNillableCity sets the "city" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableCity(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetCity(*s)
+	}
+	return auo
+}
+
+// ClearCity clears the value of the "city" field.
+func (auo *AirportUpdateOne) ClearCity() *AirportUpdateOne {
+	auo.mutation.ClearCity()
 	return auo
 }
 
@@ -263,15 +502,57 @@ func (auo *AirportUpdateOne) SetCountry(s string) *AirportUpdateOne {
 	return auo
 }
 
+// SetNillableCountry sets the "country" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableCountry(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetCountry(*s)
+	}
+	return auo
+}
+
+// ClearCountry clears the value of the "country" field.
+func (auo *AirportUpdateOne) ClearCountry() *AirportUpdateOne {
+	auo.mutation.ClearCountry()
+	return auo
+}
+
 // SetIata sets the "iata" field.
 func (auo *AirportUpdateOne) SetIata(s string) *AirportUpdateOne {
 	auo.mutation.SetIata(s)
 	return auo
 }
 
+// SetNillableIata sets the "iata" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableIata(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetIata(*s)
+	}
+	return auo
+}
+
+// ClearIata clears the value of the "iata" field.
+func (auo *AirportUpdateOne) ClearIata() *AirportUpdateOne {
+	auo.mutation.ClearIata()
+	return auo
+}
+
 // SetIcao sets the "icao" field.
 func (auo *AirportUpdateOne) SetIcao(s string) *AirportUpdateOne {
 	auo.mutation.SetIcao(s)
+	return auo
+}
+
+// SetNillableIcao sets the "icao" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableIcao(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetIcao(*s)
+	}
+	return auo
+}
+
+// ClearIcao clears the value of the "icao" field.
+func (auo *AirportUpdateOne) ClearIcao() *AirportUpdateOne {
+	auo.mutation.ClearIcao()
 	return auo
 }
 
@@ -282,9 +563,23 @@ func (auo *AirportUpdateOne) SetLatitude(f float64) *AirportUpdateOne {
 	return auo
 }
 
+// SetNillableLatitude sets the "latitude" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableLatitude(f *float64) *AirportUpdateOne {
+	if f != nil {
+		auo.SetLatitude(*f)
+	}
+	return auo
+}
+
 // AddLatitude adds f to the "latitude" field.
 func (auo *AirportUpdateOne) AddLatitude(f float64) *AirportUpdateOne {
 	auo.mutation.AddLatitude(f)
+	return auo
+}
+
+// ClearLatitude clears the value of the "latitude" field.
+func (auo *AirportUpdateOne) ClearLatitude() *AirportUpdateOne {
+	auo.mutation.ClearLatitude()
 	return auo
 }
 
@@ -295,35 +590,70 @@ func (auo *AirportUpdateOne) SetLongitude(f float64) *AirportUpdateOne {
 	return auo
 }
 
+// SetNillableLongitude sets the "longitude" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableLongitude(f *float64) *AirportUpdateOne {
+	if f != nil {
+		auo.SetLongitude(*f)
+	}
+	return auo
+}
+
 // AddLongitude adds f to the "longitude" field.
 func (auo *AirportUpdateOne) AddLongitude(f float64) *AirportUpdateOne {
 	auo.mutation.AddLongitude(f)
 	return auo
 }
 
-// SetAltitude sets the "altitude" field.
-func (auo *AirportUpdateOne) SetAltitude(f float64) *AirportUpdateOne {
-	auo.mutation.ResetAltitude()
-	auo.mutation.SetAltitude(f)
+// ClearLongitude clears the value of the "longitude" field.
+func (auo *AirportUpdateOne) ClearLongitude() *AirportUpdateOne {
+	auo.mutation.ClearLongitude()
 	return auo
 }
 
-// AddAltitude adds f to the "altitude" field.
-func (auo *AirportUpdateOne) AddAltitude(f float64) *AirportUpdateOne {
-	auo.mutation.AddAltitude(f)
+// SetAltitude sets the "altitude" field.
+func (auo *AirportUpdateOne) SetAltitude(i int) *AirportUpdateOne {
+	auo.mutation.ResetAltitude()
+	auo.mutation.SetAltitude(i)
+	return auo
+}
+
+// SetNillableAltitude sets the "altitude" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableAltitude(i *int) *AirportUpdateOne {
+	if i != nil {
+		auo.SetAltitude(*i)
+	}
+	return auo
+}
+
+// AddAltitude adds i to the "altitude" field.
+func (auo *AirportUpdateOne) AddAltitude(i int) *AirportUpdateOne {
+	auo.mutation.AddAltitude(i)
+	return auo
+}
+
+// ClearAltitude clears the value of the "altitude" field.
+func (auo *AirportUpdateOne) ClearAltitude() *AirportUpdateOne {
+	auo.mutation.ClearAltitude()
 	return auo
 }
 
 // SetTimezone sets the "timezone" field.
-func (auo *AirportUpdateOne) SetTimezone(f float64) *AirportUpdateOne {
-	auo.mutation.ResetTimezone()
-	auo.mutation.SetTimezone(f)
+func (auo *AirportUpdateOne) SetTimezone(s string) *AirportUpdateOne {
+	auo.mutation.SetTimezone(s)
 	return auo
 }
 
-// AddTimezone adds f to the "timezone" field.
-func (auo *AirportUpdateOne) AddTimezone(f float64) *AirportUpdateOne {
-	auo.mutation.AddTimezone(f)
+// SetNillableTimezone sets the "timezone" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableTimezone(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetTimezone(*s)
+	}
+	return auo
+}
+
+// ClearTimezone clears the value of the "timezone" field.
+func (auo *AirportUpdateOne) ClearTimezone() *AirportUpdateOne {
+	auo.mutation.ClearTimezone()
 	return auo
 }
 
@@ -333,9 +663,37 @@ func (auo *AirportUpdateOne) SetDst(s string) *AirportUpdateOne {
 	return auo
 }
 
+// SetNillableDst sets the "dst" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableDst(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetDst(*s)
+	}
+	return auo
+}
+
+// ClearDst clears the value of the "dst" field.
+func (auo *AirportUpdateOne) ClearDst() *AirportUpdateOne {
+	auo.mutation.ClearDst()
+	return auo
+}
+
 // SetTimezoneName sets the "timezoneName" field.
 func (auo *AirportUpdateOne) SetTimezoneName(s string) *AirportUpdateOne {
 	auo.mutation.SetTimezoneName(s)
+	return auo
+}
+
+// SetNillableTimezoneName sets the "timezoneName" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableTimezoneName(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetTimezoneName(*s)
+	}
+	return auo
+}
+
+// ClearTimezoneName clears the value of the "timezoneName" field.
+func (auo *AirportUpdateOne) ClearTimezoneName() *AirportUpdateOne {
+	auo.mutation.ClearTimezoneName()
 	return auo
 }
 
@@ -345,9 +703,37 @@ func (auo *AirportUpdateOne) SetType(s string) *AirportUpdateOne {
 	return auo
 }
 
+// SetNillableType sets the "type" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableType(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetType(*s)
+	}
+	return auo
+}
+
+// ClearType clears the value of the "type" field.
+func (auo *AirportUpdateOne) ClearType() *AirportUpdateOne {
+	auo.mutation.ClearType()
+	return auo
+}
+
 // SetSource sets the "source" field.
 func (auo *AirportUpdateOne) SetSource(s string) *AirportUpdateOne {
 	auo.mutation.SetSource(s)
+	return auo
+}
+
+// SetNillableSource sets the "source" field if the given value is not nil.
+func (auo *AirportUpdateOne) SetNillableSource(s *string) *AirportUpdateOne {
+	if s != nil {
+		auo.SetSource(*s)
+	}
+	return auo
+}
+
+// ClearSource clears the value of the "source" field.
+func (auo *AirportUpdateOne) ClearSource() *AirportUpdateOne {
+	auo.mutation.ClearSource()
 	return auo
 }
 
@@ -425,17 +811,32 @@ func (auo *AirportUpdateOne) sqlSave(ctx context.Context) (_node *Airport, err e
 	if value, ok := auo.mutation.Name(); ok {
 		_spec.SetField(airport.FieldName, field.TypeString, value)
 	}
+	if auo.mutation.NameCleared() {
+		_spec.ClearField(airport.FieldName, field.TypeString)
+	}
 	if value, ok := auo.mutation.City(); ok {
 		_spec.SetField(airport.FieldCity, field.TypeString, value)
+	}
+	if auo.mutation.CityCleared() {
+		_spec.ClearField(airport.FieldCity, field.TypeString)
 	}
 	if value, ok := auo.mutation.Country(); ok {
 		_spec.SetField(airport.FieldCountry, field.TypeString, value)
 	}
+	if auo.mutation.CountryCleared() {
+		_spec.ClearField(airport.FieldCountry, field.TypeString)
+	}
 	if value, ok := auo.mutation.Iata(); ok {
 		_spec.SetField(airport.FieldIata, field.TypeString, value)
 	}
+	if auo.mutation.IataCleared() {
+		_spec.ClearField(airport.FieldIata, field.TypeString)
+	}
 	if value, ok := auo.mutation.Icao(); ok {
 		_spec.SetField(airport.FieldIcao, field.TypeString, value)
+	}
+	if auo.mutation.IcaoCleared() {
+		_spec.ClearField(airport.FieldIcao, field.TypeString)
 	}
 	if value, ok := auo.mutation.Latitude(); ok {
 		_spec.SetField(airport.FieldLatitude, field.TypeFloat64, value)
@@ -443,35 +844,56 @@ func (auo *AirportUpdateOne) sqlSave(ctx context.Context) (_node *Airport, err e
 	if value, ok := auo.mutation.AddedLatitude(); ok {
 		_spec.AddField(airport.FieldLatitude, field.TypeFloat64, value)
 	}
+	if auo.mutation.LatitudeCleared() {
+		_spec.ClearField(airport.FieldLatitude, field.TypeFloat64)
+	}
 	if value, ok := auo.mutation.Longitude(); ok {
 		_spec.SetField(airport.FieldLongitude, field.TypeFloat64, value)
 	}
 	if value, ok := auo.mutation.AddedLongitude(); ok {
 		_spec.AddField(airport.FieldLongitude, field.TypeFloat64, value)
 	}
+	if auo.mutation.LongitudeCleared() {
+		_spec.ClearField(airport.FieldLongitude, field.TypeFloat64)
+	}
 	if value, ok := auo.mutation.Altitude(); ok {
-		_spec.SetField(airport.FieldAltitude, field.TypeFloat64, value)
+		_spec.SetField(airport.FieldAltitude, field.TypeInt, value)
 	}
 	if value, ok := auo.mutation.AddedAltitude(); ok {
-		_spec.AddField(airport.FieldAltitude, field.TypeFloat64, value)
+		_spec.AddField(airport.FieldAltitude, field.TypeInt, value)
+	}
+	if auo.mutation.AltitudeCleared() {
+		_spec.ClearField(airport.FieldAltitude, field.TypeInt)
 	}
 	if value, ok := auo.mutation.Timezone(); ok {
-		_spec.SetField(airport.FieldTimezone, field.TypeFloat64, value)
+		_spec.SetField(airport.FieldTimezone, field.TypeString, value)
 	}
-	if value, ok := auo.mutation.AddedTimezone(); ok {
-		_spec.AddField(airport.FieldTimezone, field.TypeFloat64, value)
+	if auo.mutation.TimezoneCleared() {
+		_spec.ClearField(airport.FieldTimezone, field.TypeString)
 	}
 	if value, ok := auo.mutation.Dst(); ok {
 		_spec.SetField(airport.FieldDst, field.TypeString, value)
 	}
+	if auo.mutation.DstCleared() {
+		_spec.ClearField(airport.FieldDst, field.TypeString)
+	}
 	if value, ok := auo.mutation.TimezoneName(); ok {
 		_spec.SetField(airport.FieldTimezoneName, field.TypeString, value)
+	}
+	if auo.mutation.TimezoneNameCleared() {
+		_spec.ClearField(airport.FieldTimezoneName, field.TypeString)
 	}
 	if value, ok := auo.mutation.GetType(); ok {
 		_spec.SetField(airport.FieldType, field.TypeString, value)
 	}
+	if auo.mutation.TypeCleared() {
+		_spec.ClearField(airport.FieldType, field.TypeString)
+	}
 	if value, ok := auo.mutation.Source(); ok {
 		_spec.SetField(airport.FieldSource, field.TypeString, value)
+	}
+	if auo.mutation.SourceCleared() {
+		_spec.ClearField(airport.FieldSource, field.TypeString)
 	}
 	_node = &Airport{config: auo.config}
 	_spec.Assign = _node.assignValues

@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -25,9 +24,25 @@ func (ac *AirportCreate) SetName(s string) *AirportCreate {
 	return ac
 }
 
+// SetNillableName sets the "name" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableName(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetName(*s)
+	}
+	return ac
+}
+
 // SetCity sets the "city" field.
 func (ac *AirportCreate) SetCity(s string) *AirportCreate {
 	ac.mutation.SetCity(s)
+	return ac
+}
+
+// SetNillableCity sets the "city" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableCity(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetCity(*s)
+	}
 	return ac
 }
 
@@ -37,9 +52,25 @@ func (ac *AirportCreate) SetCountry(s string) *AirportCreate {
 	return ac
 }
 
+// SetNillableCountry sets the "country" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableCountry(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetCountry(*s)
+	}
+	return ac
+}
+
 // SetIata sets the "iata" field.
 func (ac *AirportCreate) SetIata(s string) *AirportCreate {
 	ac.mutation.SetIata(s)
+	return ac
+}
+
+// SetNillableIata sets the "iata" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableIata(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetIata(*s)
+	}
 	return ac
 }
 
@@ -49,9 +80,25 @@ func (ac *AirportCreate) SetIcao(s string) *AirportCreate {
 	return ac
 }
 
+// SetNillableIcao sets the "icao" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableIcao(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetIcao(*s)
+	}
+	return ac
+}
+
 // SetLatitude sets the "latitude" field.
 func (ac *AirportCreate) SetLatitude(f float64) *AirportCreate {
 	ac.mutation.SetLatitude(f)
+	return ac
+}
+
+// SetNillableLatitude sets the "latitude" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableLatitude(f *float64) *AirportCreate {
+	if f != nil {
+		ac.SetLatitude(*f)
+	}
 	return ac
 }
 
@@ -61,15 +108,39 @@ func (ac *AirportCreate) SetLongitude(f float64) *AirportCreate {
 	return ac
 }
 
+// SetNillableLongitude sets the "longitude" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableLongitude(f *float64) *AirportCreate {
+	if f != nil {
+		ac.SetLongitude(*f)
+	}
+	return ac
+}
+
 // SetAltitude sets the "altitude" field.
-func (ac *AirportCreate) SetAltitude(f float64) *AirportCreate {
-	ac.mutation.SetAltitude(f)
+func (ac *AirportCreate) SetAltitude(i int) *AirportCreate {
+	ac.mutation.SetAltitude(i)
+	return ac
+}
+
+// SetNillableAltitude sets the "altitude" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableAltitude(i *int) *AirportCreate {
+	if i != nil {
+		ac.SetAltitude(*i)
+	}
 	return ac
 }
 
 // SetTimezone sets the "timezone" field.
-func (ac *AirportCreate) SetTimezone(f float64) *AirportCreate {
-	ac.mutation.SetTimezone(f)
+func (ac *AirportCreate) SetTimezone(s string) *AirportCreate {
+	ac.mutation.SetTimezone(s)
+	return ac
+}
+
+// SetNillableTimezone sets the "timezone" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableTimezone(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetTimezone(*s)
+	}
 	return ac
 }
 
@@ -79,9 +150,25 @@ func (ac *AirportCreate) SetDst(s string) *AirportCreate {
 	return ac
 }
 
+// SetNillableDst sets the "dst" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableDst(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetDst(*s)
+	}
+	return ac
+}
+
 // SetTimezoneName sets the "timezoneName" field.
 func (ac *AirportCreate) SetTimezoneName(s string) *AirportCreate {
 	ac.mutation.SetTimezoneName(s)
+	return ac
+}
+
+// SetNillableTimezoneName sets the "timezoneName" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableTimezoneName(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetTimezoneName(*s)
+	}
 	return ac
 }
 
@@ -91,9 +178,25 @@ func (ac *AirportCreate) SetType(s string) *AirportCreate {
 	return ac
 }
 
+// SetNillableType sets the "type" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableType(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetType(*s)
+	}
+	return ac
+}
+
 // SetSource sets the "source" field.
 func (ac *AirportCreate) SetSource(s string) *AirportCreate {
 	ac.mutation.SetSource(s)
+	return ac
+}
+
+// SetNillableSource sets the "source" field if the given value is not nil.
+func (ac *AirportCreate) SetNillableSource(s *string) *AirportCreate {
+	if s != nil {
+		ac.SetSource(*s)
+	}
 	return ac
 }
 
@@ -137,45 +240,6 @@ func (ac *AirportCreate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (ac *AirportCreate) check() error {
-	if _, ok := ac.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Airport.name"`)}
-	}
-	if _, ok := ac.mutation.City(); !ok {
-		return &ValidationError{Name: "city", err: errors.New(`ent: missing required field "Airport.city"`)}
-	}
-	if _, ok := ac.mutation.Country(); !ok {
-		return &ValidationError{Name: "country", err: errors.New(`ent: missing required field "Airport.country"`)}
-	}
-	if _, ok := ac.mutation.Iata(); !ok {
-		return &ValidationError{Name: "iata", err: errors.New(`ent: missing required field "Airport.iata"`)}
-	}
-	if _, ok := ac.mutation.Icao(); !ok {
-		return &ValidationError{Name: "icao", err: errors.New(`ent: missing required field "Airport.icao"`)}
-	}
-	if _, ok := ac.mutation.Latitude(); !ok {
-		return &ValidationError{Name: "latitude", err: errors.New(`ent: missing required field "Airport.latitude"`)}
-	}
-	if _, ok := ac.mutation.Longitude(); !ok {
-		return &ValidationError{Name: "longitude", err: errors.New(`ent: missing required field "Airport.longitude"`)}
-	}
-	if _, ok := ac.mutation.Altitude(); !ok {
-		return &ValidationError{Name: "altitude", err: errors.New(`ent: missing required field "Airport.altitude"`)}
-	}
-	if _, ok := ac.mutation.Timezone(); !ok {
-		return &ValidationError{Name: "timezone", err: errors.New(`ent: missing required field "Airport.timezone"`)}
-	}
-	if _, ok := ac.mutation.Dst(); !ok {
-		return &ValidationError{Name: "dst", err: errors.New(`ent: missing required field "Airport.dst"`)}
-	}
-	if _, ok := ac.mutation.TimezoneName(); !ok {
-		return &ValidationError{Name: "timezoneName", err: errors.New(`ent: missing required field "Airport.timezoneName"`)}
-	}
-	if _, ok := ac.mutation.GetType(); !ok {
-		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "Airport.type"`)}
-	}
-	if _, ok := ac.mutation.Source(); !ok {
-		return &ValidationError{Name: "source", err: errors.New(`ent: missing required field "Airport.source"`)}
-	}
 	return nil
 }
 
@@ -237,11 +301,11 @@ func (ac *AirportCreate) createSpec() (*Airport, *sqlgraph.CreateSpec) {
 		_node.Longitude = value
 	}
 	if value, ok := ac.mutation.Altitude(); ok {
-		_spec.SetField(airport.FieldAltitude, field.TypeFloat64, value)
+		_spec.SetField(airport.FieldAltitude, field.TypeInt, value)
 		_node.Altitude = value
 	}
 	if value, ok := ac.mutation.Timezone(); ok {
-		_spec.SetField(airport.FieldTimezone, field.TypeFloat64, value)
+		_spec.SetField(airport.FieldTimezone, field.TypeString, value)
 		_node.Timezone = value
 	}
 	if value, ok := ac.mutation.Dst(); ok {

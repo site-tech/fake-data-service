@@ -9,6 +9,18 @@ import (
 	"github.com/site-tech/fake-data-service/ent"
 )
 
+// The AirlineFunc type is an adapter to allow the use of ordinary
+// function as Airline mutator.
+type AirlineFunc func(context.Context, *ent.AirlineMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AirlineFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.AirlineMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AirlineMutation", m)
+}
+
 // The AirportFunc type is an adapter to allow the use of ordinary
 // function as Airport mutator.
 type AirportFunc func(context.Context, *ent.AirportMutation) (ent.Value, error)
@@ -19,6 +31,30 @@ func (f AirportFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, err
 		return f(ctx, mv)
 	}
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AirportMutation", m)
+}
+
+// The PlaneFunc type is an adapter to allow the use of ordinary
+// function as Plane mutator.
+type PlaneFunc func(context.Context, *ent.PlaneMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f PlaneFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.PlaneMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PlaneMutation", m)
+}
+
+// The RouteFunc type is an adapter to allow the use of ordinary
+// function as Route mutator.
+type RouteFunc func(context.Context, *ent.RouteMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f RouteFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.RouteMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.RouteMutation", m)
 }
 
 // Condition is a hook condition function.
