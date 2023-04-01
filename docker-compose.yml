@@ -7,13 +7,29 @@ services:
     volumes:
       - client-data:/var/lib/postgresql/data
     expose:
-      - 5432
+      - 5433
     ports:
-      - 5432:5432
+      - 5433:5432
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
+
+  fake-data-service:
+    image: fake-data-service:latest
+    network_mode: bridge
+    container_name: fake-data-service
+    build: .
+    env_file:
+      - .env
+    expose:
+      - 8881
+    ports:
+      - 8881:8881
+    depends_on:
+      - client-postgres
+    links:
+      - client-postgres
 
 volumes:
   client-data:
